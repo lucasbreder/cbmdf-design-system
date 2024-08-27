@@ -1,7 +1,7 @@
 
 import { IconName } from "@fortawesome/fontawesome-svg-core"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { use, useState } from "react"
+import { useState } from "react"
 
 type SelectorProps = {
     iconsOptions: string[]
