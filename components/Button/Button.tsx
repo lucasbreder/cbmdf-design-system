@@ -29,7 +29,7 @@ const Button = ({
 
     return <button disabled={disable} className={`
         bg-highlight
-        text-primary
+        text-secondary
         font-bold
         px-6
         py-2
