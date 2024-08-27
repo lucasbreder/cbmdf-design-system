@@ -1,11 +1,16 @@
 import { Meta, StoryObj } from "@storybook/react";
-import Link from "./Link";
+import LinkItem from "./LinkItem";
 
 const meta = {
     title: 'Link',
     tags: ['autodocs'],
-    component: Link
-} satisfies Meta<typeof Link>;
+    argTypes: {
+        icon: {
+            control: { type: "text" }
+        }
+    },
+    component: LinkItem
+} satisfies Meta<typeof LinkItem>;
 
 export default meta;
 
@@ -14,6 +19,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
     args: {
         title: 'Exemplo',
-        href: 'https://google.com.br'
+        href: 'https://google.com.br',
     },
 };
