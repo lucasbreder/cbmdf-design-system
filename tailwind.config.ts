@@ -16,7 +16,8 @@ const config: Config = {
         gray: "rgb(var(--gray))"
       },
       textColor: {
-        primary: "#fff",
+        primary: "rgb(var(--primary))",
+        secondary: "#fff",
       },
     },
   },
