@@ -12,7 +12,7 @@ type ButtonProps = {
     disable?: boolean
     loading?: boolean
     loadingTitle?: string
-    icon?: string
+    icon?: IconName
     iconPosition?: 'before' | 'after'
 } & (React.ButtonHTMLAttributes<HTMLButtonElement>)
 
@@ -49,7 +49,7 @@ const Button = ({
         ${iconPosition === 'before' && `flex-row-reverse`}
     `
     }>{loading ? loadingTitle : title}
-        {icon && <FontAwesomeIcon icon={['fas', icon as IconName]} />}
+        {icon && <FontAwesomeIcon icon={['fas', icon]} />}
     </button>
 }
 export default Button
