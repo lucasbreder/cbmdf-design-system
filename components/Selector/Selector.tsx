@@ -3,7 +3,6 @@ import { IconName } from "@fortawesome/fontawesome-svg-core"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useState } from "react"
 
-
 type SelectorItem = {
     icon: IconName
     function: () => void
@@ -14,7 +13,6 @@ type SelectorProps = {
     iconsOptions: SelectorItem[]
 
 }
-
 
 const Selector = ({ iconsOptions }: SelectorProps) => {
 
