@@ -1,3 +1,4 @@
+import { transform } from "next/dist/build/swc";
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -19,6 +20,15 @@ const config: Config = {
         primary: "rgb(var(--primary))",
         secondary: "#fff",
       },
+      keyframes: {
+        'fade-left': {
+          '0%': { opacity: '0', transform: 'translateX(-20px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        }
+      },
+      animation: {
+        'fade-left-enter': 'fade-left .5s ease-in-out',
+      }
     },
   },
   plugins: [],
