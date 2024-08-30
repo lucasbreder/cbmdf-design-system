@@ -7,18 +7,45 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: [
+    'bg-warning',
+    'text-warning',
+    'border-warning',
+    'bg-attention',
+    'text-attention',
+    'border-attention',
+    'bg-accept',
+    'text-accept',
+    'border-accept',
+    'bg-highlight',
+    'text-highlight',
+    'border-highlight',
+  ],
   theme: {
     extend: {
       backgroundColor: {
         primary: "rgb(var(--primary))",
-        highlight: "rgb(var(--highlight))",
         disabled: "rgb(var(--disabled))",
         hover: "rgb(var(--hover))",
-        gray: "rgb(var(--gray))"
+        gray: "rgb(var(--gray))",
+        highlight: "rgb(var(--highlight))",
+        warning: "rgb(var(--warning))",
+        attention: "rgb(var(--attention))",
+        accept: "rgb(var(--accept))",
       },
       textColor: {
         primary: "rgb(var(--primary))",
         secondary: "#fff",
+        highlight: "rgb(var(--highlight))",
+        warning: "rgb(var(--warning))",
+        attention: "rgb(var(--attention))",
+        accept: "rgb(var(--accept))",
+      },
+      borderColor: {
+        highlight: "rgb(var(--highlight))",
+        warning: "rgb(var(--warning))",
+        attention: "rgb(var(--attention))",
+        accept: "rgb(var(--accept))",
       },
       keyframes: {
         'fade-left': {
