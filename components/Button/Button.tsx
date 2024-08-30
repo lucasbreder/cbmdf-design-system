@@ -14,6 +14,9 @@ type ButtonProps = {
     loadingTitle?: string
     icon?: IconName
     iconPosition?: 'before' | 'after'
+    variant?: 'default' | 'outline' | 'transparent'
+    color?: 'highlight' | 'warning' | 'attention' | 'accept'
+    size?: 'base' | 'sm'
 } & (React.ButtonHTMLAttributes<HTMLButtonElement>)
 
 
@@ -23,19 +26,37 @@ const Button = ({
     loading = false,
     icon,
     loadingTitle = `Carregando...`,
-    iconPosition = 'after'
+    iconPosition = 'after',
+    variant,
+    color = 'highlight',
+    size = 'base',
+    ...rest
 }: ButtonProps) => {
 
+    const variantDef = () => {
+        switch (variant) {
+            case 'outline':
+                return `bg-transparent text-${color} border-${color} border-y-2 border-x-2`
+            case 'transparent':
+                return `bg-transparent text-${color}`
+            default:
+                return `bg-${color} text-secondary border-none hover:bg-hover`
+        }
+    }  
 
-    return <button disabled={disable} className={`
-        bg-highlight
-        text-secondary
+    const sizeDef = () => {
+        switch (size) {
+            case 'sm':
+                return `px-4 py-2 text-sm`
+            default:
+                return `px-6 py-2`
+        }
+    }  
+
+    return <button {...rest} disabled={disable} className={`
         font-bold
-        px-6
-        py-2
+        ${sizeDef()}
         rounded-md
-        border-none
-        hover:bg-hover
         active:shadow-inner
         transition
         duration-300
@@ -44,12 +65,17 @@ const Button = ({
         items-center
         gap-2
         max-w-80
+
+        ${variantDef()}
         ${disable && `disabled:bg-disabled`}
         ${loading && `opacity-60`}
         ${iconPosition === 'before' && `flex-row-reverse`}
     `
-    }>{loading ? loadingTitle : title}
-        {icon && <FontAwesomeIcon icon={['fas', icon]} />}
+    }><span className='min-w-0 break-words'>{loading ? loadingTitle : title}</span>
+        {icon && !loading &&
+        <FontAwesomeIcon icon={['fas', icon]} />}
+        {loading && 
+        <FontAwesomeIcon className='animate-spin' icon={['fas','spinner']} />}
     </button>
 }
 export default Button

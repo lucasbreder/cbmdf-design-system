@@ -9,6 +9,9 @@
     --disabled: 180, 180,180;
     --hover: 25, 100,255;
     --gray: 211, 211, 211;
+    --warning: 142, 0, 0;
+    --attention: 223, 169, 65;
+    --accept: 36, 108, 30;
   }
 
   .theme-red {
