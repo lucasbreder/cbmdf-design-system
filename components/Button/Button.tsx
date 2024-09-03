@@ -16,7 +16,7 @@ type ButtonProps = {
     iconPosition?: 'before' | 'after'
     variant?: 'default' | 'outline' | 'transparent'
     color?: 'highlight' | 'warning' | 'attention' | 'accept'
-    size?: 'base' | 'sm'
+    size?: 'base' | 'sm' | 'icon'
 } & (React.ButtonHTMLAttributes<HTMLButtonElement>)
 
 
@@ -48,6 +48,8 @@ const Button = ({
         switch (size) {
             case 'sm':
                 return `px-4 py-2 text-sm`
+            case 'icon':
+                return `px-3 py-2 `
             default:
                 return `px-6 py-2`
         }
@@ -71,7 +73,7 @@ const Button = ({
         ${loading && `opacity-60`}
         ${iconPosition === 'before' && `flex-row-reverse`}
     `
-    }><span className='min-w-0 break-words'>{loading ? loadingTitle : title}</span>
+    }><span className={`min-w-0 break-words ${!title && icon && `hidden`}`}>{loading ? loadingTitle : title}</span>
         {icon && !loading &&
         <FontAwesomeIcon icon={['fas', icon]} />}
         {loading && 

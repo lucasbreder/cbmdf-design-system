@@ -1,5 +1,6 @@
 import { IconName } from "@fortawesome/fontawesome-svg-core"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import Button from "../Button/Button"
 
 type InputProps = {
     placeholder?: string,
@@ -34,14 +35,15 @@ const Input = ({
             hover:outline-zinc-100
 
             ${disabled && `bg-zinc-50 hover:outline-0 `}
-            ${iconPosition === 'before' && `pl-11`}
+            ${iconPosition === 'before' && `pl-12`}
+            ${iconPosition === 'after' && `pr-12`}
         `}
             type="text"
             placeholder={placeholder}
             disabled={disabled}
         />
-        <span className={`absolute mr-4 ${iconPosition === 'before' && `ml-4`}`}>
-            {icon && <FontAwesomeIcon icon={['fas', icon]} />}
+        <span className={`absolute  ${iconPosition === 'before' && `ml-1`}`}>
+            <Button title="" variant="transparent" iconPosition="before" icon="search" size="icon"/>
         </span>
     </div>
 
