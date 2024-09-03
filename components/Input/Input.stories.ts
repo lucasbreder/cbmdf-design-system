@@ -18,6 +18,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
     args: {
-        placeholder: "placeholde"
+        placeholder: "placeholder",
+        disabled: false,
+        icon: "search"
     }
 }
