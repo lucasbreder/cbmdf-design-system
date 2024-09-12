@@ -1,24 +1,13 @@
-import { deepRemoveItem } from "@/helpers/deepRemoveItem"
-import { deepReplace } from "@/helpers/deepReplace"
 import useTransferContext from "@/hook/useTransferContext"
 import useTransferData from "@/hook/useTransferData"
 import Image from "next/image"
-import { useState } from "react"
 
 type ItemCardProps = {
     id: number
     placeId: number
     title: string
     image?: string
-    categories?: ItemCategory[]
     quantity: number
-    info?: any[]
-    isCheckable?: boolean
-    showCategories?: boolean
-}
-
-type ItemCategory = {
-    title: string
 }
 
 
