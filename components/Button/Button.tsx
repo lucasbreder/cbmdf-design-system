@@ -8,7 +8,7 @@ library.add(fas);
 
 
 type ButtonProps = {
-    title: string
+    title?: string
     disable?: boolean
     loading?: boolean
     loadingTitle?: string
@@ -42,7 +42,7 @@ const Button = ({
             default:
                 return `bg-${color} text-secondary border-none hover:bg-hover`
         }
-    }  
+    }
 
     const sizeDef = () => {
         switch (size) {
@@ -51,7 +51,7 @@ const Button = ({
             default:
                 return `px-6 py-2`
         }
-    }  
+    }
 
     return <button {...rest} disabled={disable} className={`
         font-bold
@@ -71,11 +71,11 @@ const Button = ({
         ${loading && `opacity-60`}
         ${iconPosition === 'before' && `flex-row-reverse`}
     `
-    }><span className='min-w-0 break-words'>{loading ? loadingTitle : title}</span>
+    }>{title && <span className='min-w-0 break-words'>{loading ? loadingTitle : title}</span>}
         {icon && !loading &&
-        <FontAwesomeIcon icon={['fas', icon]} />}
-        {loading && 
-        <FontAwesomeIcon className='animate-spin' icon={['fas','spinner']} />}
+            <FontAwesomeIcon icon={['fas', icon]} />}
+        {loading &&
+            <FontAwesomeIcon className='animate-spin' icon={['fas', 'spinner']} />}
     </button>
 }
 export default Button
