@@ -18,34 +18,33 @@ type MaterialCheckProps = {
 }
 
 type MaterialCheckDataState = {
+    [key: string]: any;
     isTested?: boolean
     isChecked?: boolean
     observation?: string
 }
 
+let key: keyof MaterialCheckDataState;
+
 const MaterialCheck = ({ title, image, author, date, isTested, isChecked, observation, isEditable = false }: MaterialCheckProps) => {
 
     const [showObs, setShowObs] = useState(false)
-    const [isSaving, setIsSaving] = useState(false)
     const [dataState, setDataState] = useState<MaterialCheckDataState>({
         isChecked,
         isTested,
         observation
     })
-    const [isCheckedState, setCheckedState] = useState(isChecked)
-    const [isTestedState, setTestedState] = useState(isTested)
-    const [observationState, setObservationState] = useState(observation)
 
     const checkboxes = [
         {
             title: 'Verificado',
-            isState: isCheckedState,
-            changeStateFuncion: setCheckedState
+            isState: dataState.isChecked,
+            key: 'isChecked'
         },
         {
             title: 'Testado',
-            isState: isTestedState,
-            changeStateFuncion: setTestedState
+            isState: dataState.isTested,
+            key: 'isTested'
         }
     ]
 
@@ -58,18 +57,28 @@ const MaterialCheck = ({ title, image, author, date, isTested, isChecked, observ
                         <div className="rounded-full overflow-hidden min-w-12 h-12 relative"><Image src={image} alt="" fill /></div>
                         <div className="leading-5 font-bold min-w-28">{title}</div>
                         {
-                            checkboxes.map((checkbox, index) => (
-                                <div key={index} className="flex flex-col items-center">
+                            checkboxes.map((checkbox, index) => {
+                                return (
+                                    <div key={index} className="flex flex-col items-center">
 
-                                    <label htmlFor="checked">{checkbox.title}</label>
-                                    {!isEditable ?
-                                        <FontAwesomeIcon size="xl" className={checkbox.isState ? 'text-accept' : 'text-warning'} icon={['fas', checkbox.isState ? 'check' : 'close']} /> :
-                                        <Checkbox id="checked" checked={checkbox.isState}
-                                            onCheckedChange={() => {
-                                                checkbox.changeStateFuncion(prev => !prev)
-                                            }} />}
-                                </div>
-                            ))
+                                        <label htmlFor="checked">{checkbox.title}</label>
+                                        {!isEditable ?
+                                            <FontAwesomeIcon size="xl"
+                                                className={checkbox.isState ? 'text-accept' : 'text-warning'}
+                                                icon={['fas', checkbox.isState ? 'check' : 'close']} /> :
+                                            <Checkbox id="checked" checked={checkbox.isState}
+                                                onCheckedChange={() => {
+                                                    setDataState(prev => (
+                                                        {
+                                                            ...prev,
+                                                            isChecked: checkbox.key === 'isChecked' ? !prev.isChecked : prev.isChecked,
+                                                            isTested: checkbox.key === 'isTested' ? !prev.isTested : prev.isTested,
+                                                        }
+                                                    ))
+                                                }} />}
+                                    </div>
+                                )
+                            })
                         }
 
                     </div>
@@ -77,13 +86,16 @@ const MaterialCheck = ({ title, image, author, date, isTested, isChecked, observ
                         {isEditable &&
                             <div className="flex gap-2 cursor-pointer my-2 justify-center items-center" onClick={() => {
                                 setShowObs(prev => !prev)
-                            }}>Adicionar Observação<FontAwesomeIcon className={`grid transition-all duration-500 ${showObs ? 'rotate-180' : 'rotate-0'}`} icon={['fas', 'arrow-down']} /></div>}
+                            }}>Adicionar Observação<FontAwesomeIcon className={`grid transition-all duration-500 ${showObs ? 'rotate-180' : 'rotate-0'}`}
+                                icon={['fas', 'arrow-down']} /></div>}
 
-                        <div className={`grid transition-all duration-500 ${showObs || observationState ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
+                        <div className={`grid transition-all duration-500 ${showObs || dataState.observation ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
                             <div className="overflow-hidden mt-2">
-                                {(observationState && !isEditable) ? observationState : <Textarea onChange={(e) => {
-                                    setObservationState(e.target.value)
-                                }} value={observationState} />}
+                                {(dataState.observation && !isEditable) ? dataState.observation : <Textarea onChange={(e) => {
+                                    setDataState(prev => (
+                                        { ...prev, observation: e.target.value }
+                                    ))
+                                }} value={dataState.observation} />}
                             </div>
                         </div>
 
