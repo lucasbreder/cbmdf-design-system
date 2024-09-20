@@ -6,7 +6,7 @@ import { useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Moment from "react-moment"
 
-type MaterialCheckProps = {
+export type MaterialCheckProps = {
     title: string
     image: string
     author?: string
