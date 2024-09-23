@@ -22,11 +22,11 @@ const Nav = ({items}:NavProps) => {
     <NavigationMenu className="bg-slate-100 px-4 py-5 w-min rounded-2xl">
       <NavigationMenuList className="flex flex-col gap-3">
         {items.map((item,index) => (
-          <NavigationMenuItem className="flex gap-2 py-1 px-3 items-center font-light text-primary bg-transparent rounded-full hover:bg-primary hover:text-white transition-all duration-300" key={index}>
-             {item.icon && <FontAwesomeIcon icon={['fas', item.icon as IconName ]} />}
-          <Link href={item.url} passHref legacyBehavior>
-            <NavigationMenuLink>{item.label}</NavigationMenuLink>
-          </Link>
+          <NavigationMenuItem  key={index}>
+            <NavigationMenuLink className="flex gap-2 py-1 px-3 items-center font-light text-primary bg-transparent rounded-full hover:bg-primary hover:text-white transition-all duration-300" href={item.url}>
+              {item.icon && <FontAwesomeIcon icon={['fas', item.icon as IconName ]} />}
+              {item.label}
+              </NavigationMenuLink>
         </NavigationMenuItem>
         ))}
       </NavigationMenuList>
