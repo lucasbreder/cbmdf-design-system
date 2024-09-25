@@ -6,9 +6,10 @@ import { CartesianGrid, Dot, Line, LineChart, XAxis, YAxis } from "recharts"
 type LineChartMaterial = {
   chartConfig: ChartConfig
   chartData: any[]
+  dataKey: string
 }
 
-const LineChartMaterial = ({chartConfig, chartData}:LineChartMaterial) => {
+const LineChartMaterial = ({chartConfig, chartData, dataKey}:LineChartMaterial) => {
 
     return (
         <div>
@@ -18,7 +19,7 @@ const LineChartMaterial = ({chartConfig, chartData}:LineChartMaterial) => {
                 <ChartLegend verticalAlign="top" radius={130} content={<ChartLegendContent />} />
                 <ChartTooltip content={<ChartTooltipContent />} />
                 <YAxis
-                      dataKey="balance"
+                      dataKey={dataKey}
                       tickLine={false}
                       axisLine={false}
                       tickMargin={20}
