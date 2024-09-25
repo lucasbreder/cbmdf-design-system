@@ -53,3 +53,29 @@ export const Default: Story = {
        ]
     },
 };
+
+export const Favorite: Story = {
+    args: {
+    variant: 'dark',
+    seeMoreUrl: '/organizacao',
+    size: 'sm',
+       items: [
+        {
+            label: 'Depósito',
+            url: '/deposito',
+        },
+        {
+            label: 'ABT-100',
+            url: '/abt100',
+        },
+        {
+            label: 'ASE-100',
+            url: '/ase100',
+        },
+        {
+            label: 'ABTF-100',
+            url: '/abtf100',
+        }
+       ]
+    },
+};
