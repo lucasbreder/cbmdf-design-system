@@ -9,16 +9,18 @@ import getIconNameByType from "@/helpers/getIconNameByType";
 
 
 type FileDropProps = {
-    fileTypes: {
-        mimeType: Array<string>
-        extensionsType: Array<string>,
-    }
+    fileTypes: FileTypes
     maxFileSize?: number, // @valores em bytes
-    progressUpload: Array<{
+    progressUpload?: Array<{
         name: string,
         progress: number
     }>,
     function?: () => void
+}
+
+export type FileTypes = {
+    mimeType: Array<string>
+    extensionsType: Array<string>,
 }
 
 
@@ -168,7 +170,7 @@ const FileDrop = ({ fileTypes, maxFileSize, progressUpload }: FileDropProps) => 
                                         <td className={`border-b px-2 py-0 border-slate-300`}>{formatBytes(item.size)}</td>
                                         <td className={`border-b px-2 py-0 border-slate-300`}>
                                             <Progress
-                                                classBar={`duration-200 ${animateIcon && ` bg-primary/40` || `bg-primary/80`}`}
+                                                // classBar={`duration-200 ${animateIcon && ` bg-primary/40` || `bg-primary/80`}`}
                                                 className={`duration-200 h-2 w-24 rounded-none border ${animateIcon && ` border-primary/40` || `border-primary/80`}`}
                                                 value={(progressUpload.find(element => element.name === item.name))?.progress}
                                             />
