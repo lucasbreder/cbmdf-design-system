@@ -1,0 +1,77 @@
+import Aside from "./Aside";
+import { Meta, StoryObj } from "@storybook/react";
+import Nav from "../Nav/Nav";
+
+const meta = {
+    title: 'Aside',
+    tags: ['autodocs'],
+    component: Aside,
+
+} satisfies Meta<typeof Aside>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+    args: {
+        children: [
+            <Nav items={[
+                {
+                    label: 'Dashboard',
+                    url: '/dashboard',
+                    icon: 'border-all'
+                },
+                {
+                    label: 'Catálogo',
+                    url: '/catalogo',
+                    icon: 'book'
+                },
+                {
+                    label: 'Inventário',
+                    url: '/inventario',
+                    icon: 'boxes-stacked'
+                },
+                {
+                    label: 'Conferência',
+                    url: '/conferencia',
+                    icon: 'check'
+                },
+                {
+                    label: 'Transferências',
+                    url: '/transferencia',
+                    icon: 'right-left'
+                },
+                {
+                    label: 'Organização',
+                    url: '/organizacao',
+                    icon: 'sitemap'
+                },
+                {
+                    label: 'Cautelas',
+                    url: '/cautelas',
+                    icon: 'arrow-up-from-bracket'
+                }
+               ]} />,
+               <Nav variant="dark" size="sm" items={[
+                {
+                    label: 'Depósito',
+                    url: '/deposito',
+                },
+                {
+                    label: 'ABT-100',
+                    url: '/abt100',
+                },
+                {
+                    label: 'ASE-100',
+                    url: '/ase100',
+                },
+                {
+                    label: 'ABTF-100',
+                    url: '/abtf100',
+                }
+               ]} />
+               
+        ],
+    },
+};
