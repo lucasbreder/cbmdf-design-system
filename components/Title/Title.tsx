@@ -9,7 +9,7 @@ type TitleProps = {
 const Title = ({title, subtitle, subtitlePosition}:TitleProps) => {
     return (
         <div className={`flex flex-col ${subtitlePosition === 'before' && `flex-col-reverse`}`}>
-            <h2 className="text-3xl font-bold">{title}</h2>
+            <h2 className="text-3xl font-bold leading-none">{title}</h2>
             <p>{subtitle}</p>
         </div>
     )

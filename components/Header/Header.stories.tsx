@@ -7,6 +7,8 @@ import { z } from "zod";
 import Button from "../Button/Button";
 import Selector from "../Selector/Selector";
 import { Input } from "../ui/input";
+import Title from "../Title/Title";
+import SearchForm from "../SearchForm/SearchForm";
 
 const meta = {
     title: 'Header',
@@ -22,17 +24,18 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
     args: {
         children: [
-            <div>Title</div>,
-            <Input placeholder="Faça uma busca"/>,
+            <Title title="Título da Página" subtitle="Subtítulo" />,
+            <div className="basis-1/2"><SearchForm placeholder="Faça uma busca..." /></div>,
             <Selector iconsOptions={[
                 {
                     icon: 'list',
-                    onClick: () => {alert('click')}
+                    onClick: () => {}
                 },
                 {
                     icon: 'calendar',
-                    onClick: () => {alert('click')}
+                    onClick: () => {}
                 },
+                
             ]} />,
             <Button title="Novo" onClick={() => {alert('click')}} />
                
