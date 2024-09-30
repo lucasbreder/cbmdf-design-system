@@ -5,7 +5,7 @@ import { useState } from "react"
 
 type SelectorItem = {
     icon: IconName
-    function: () => void
+    onClick: () => void
 
 }
 
@@ -23,6 +23,8 @@ const Selector = ({ iconsOptions }: SelectorProps) => {
             rounded-md
             bg-gray 
             w-min
+            min-w-20
+            max-h-10
             overflow-hidden
             flex
             justify-between
@@ -44,7 +46,7 @@ const Selector = ({ iconsOptions }: SelectorProps) => {
 
                 } icon={['fas', item.icon]} color="#fff" width={24} onClick={() => {
                     setActivedIconIndex(index)
-                    item.function()
+                    item.onClick()
                 }} />
             })}
 

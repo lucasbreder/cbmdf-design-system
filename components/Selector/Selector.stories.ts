@@ -21,27 +21,27 @@ export const Default: Story = {
         iconsOptions: [
             {
                 icon: 'list',
-                function: ExampleFunction
+                onClick: ExampleFunction
             },
             {
                 icon: 'calendar',
-                function: ExampleFunction
+                onClick: ExampleFunction
             },
             {
                 icon: 'coffee',
-                function: ExampleFunction
+                onClick: ExampleFunction
             },
             {
                 icon: 'moon',
-                function: ExampleFunction
+                onClick: ExampleFunction
             },
             {
                 icon: 'sun',
-                function: ExampleFunction
+                onClick: ExampleFunction
             },
             {
                 icon: 'cookie',
-                function: ExampleFunction
+                onClick: ExampleFunction
             }
         ],
     },
