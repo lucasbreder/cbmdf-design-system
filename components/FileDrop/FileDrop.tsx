@@ -6,10 +6,13 @@ import { formatBytes } from "@/helpers/formatBytes";
 import { useToast } from "@/hooks/use-toast";
 import { Toaster } from "../ui/toaster";
 import getIconNameByType from "@/helpers/getIconNameByType";
+import { ControllerRenderProps, FieldValues, UseFormReturn } from "react-hook-form";
 
 
 type FileDropProps = {
     fileTypes: FileTypes
+    form:UseFormReturn
+    field: ControllerRenderProps<FieldValues, string>
     maxFileSize?: number, // @valores em bytes
     progressUpload?: Array<{
         name: string,
@@ -24,7 +27,9 @@ export type FileTypes = {
 }
 
 
-const FileDrop = ({ fileTypes, maxFileSize, progressUpload }: FileDropProps) => {
+const FileDrop = ({ fileTypes, maxFileSize, progressUpload = [], field, form }: FileDropProps) => {
+
+
 
     const { toast } = useToast()
 
@@ -95,19 +100,24 @@ const FileDrop = ({ fileTypes, maxFileSize, progressUpload }: FileDropProps) => 
             setFiles(prev => {
                 const existingFiles = prev?.map(file => file.name);
                 const newFiles = items.filter(item => !existingFiles?.includes(item.name));
+                form.setValue(field.name, [...(prev || []), ...newFiles])
                 return [...(prev || []), ...newFiles];
             });
-
+            
         })
     }
 
     const handleInputUpload = () => {
-        if (inputRef.current?.files) processFiles(inputRef.current.files)
+        if (inputRef.current?.files) {processFiles(inputRef.current.files)}
+
+        
+            
     }
 
     const removeFile = (key: Number) => {
         const newFiles = files?.filter((file, index) => index !== key);
         setFiles(newFiles)
+        form.setValue(field.name, newFiles)
     }
 
 

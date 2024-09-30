@@ -2,6 +2,9 @@
 import { Meta, StoryObj } from "@storybook/react";
 import FormConstructor from "./FormConstructor";
 import { z } from "zod";
+import { cpfMask } from "@/helpers/masks/cpfMask";
+import { required, requiredSelect } from "@/helpers/parsers/parsers";
+import { brlMask } from "@/helpers/masks/brlMask";
 
 const meta = {
     title: 'Forms',
@@ -13,29 +16,69 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+
 export const Default: Story = {
     args: {
         title: 'Exemplo de formulário',
+        buttonLabel: 'Salvar',
+        submitHandler: (data) => {console.log(data)},
         fields: [
             {
                 name: 'text',
-                parser: z.string().min(2, {message: 'Deve ter entre 2 e 50 caracteres'}).max(50, {message: 'Deve ter entre 2 e 50 caracteres'}),
+                parser: required
+                .max(50, {
+                    message: 'Deve ter entre 2 e 50 caracteres'
+                }),
                 placeholder: '',
                 label: 'Texto',
                 defaultValue: '',
                 description: 'Aqui temos um exemplo de input text',
                 type: 'text',
-                basisSize: 'basis-1/3'
+                basis: 'basis-1/2'
+            },
+            {
+                name: 'cpf',
+                parser: required
+                .max(50, {
+                    message: 'Deve ter entre 2 e 50 caracteres'
+                }),
+                mask: (value) => {
+                    return cpfMask(value)
+                },
+                placeholder: '',
+                label: 'CPF',
+                defaultValue: '',
+                description: 'Exemplo de input com máscara',
+                type: 'text',
+                basis: 'basis-1/2'
+            },
+            {
+                name: 'currency',
+                parser: required
+                .max(50, {
+                    message: 'Deve ter entre 2 e 50 caracteres'
+                }),
+                mask: (value) => {
+                    return brlMask(value)
+                },
+                placeholder: '',
+                label: 'Valor',
+                defaultValue: '',
+                description: 'Exemplo de input com máscara de R$ ',
+                type: 'text',
+                basis: 'basis-1/3'
             },
             {
                 name: 'number',
-                parser: z.string().min(2, {message: 'Deve ter entre 2 e 50 caracteres'}).max(50, {message: 'Deve ter entre 2 e 50 caracteres'}),
+                parser: z.coerce.number({ invalid_type_error: "Deve ser um número" })
+                .max(50, {message: 'No máximo 50'})
+                .optional(),
                 placeholder: '',
                 label: 'Número',
                 defaultValue: '',
-                description: 'Aqui temos um exemplo de input number',
+                description: 'Aqui temos um exemplo de input number, opcional e maximo de 50',
                 type: 'number',
-                basisSize: 'basis-1/3'
+                basis: 'basis-1/3'
             },
             {
                 name: 'email',
@@ -45,11 +88,11 @@ export const Default: Story = {
                 defaultValue: '',
                 description: 'Aqui temos um exemplo de input email',
                 type: 'email',
-                basisSize: 'basis-1/3'
+                basis: 'basis-1/3'
             },
         {
             name: 'textarea',
-            parser: z.string().min(2, {message: 'Deve ter entre 2 e 50 caracteres'}).max(50, {message: 'Deve ter entre 2 e 50 caracteres'}),
+            parser: z.optional(z.string()),
             placeholder: '',
             label: 'Área de Texto',
             defaultValue: '',
@@ -58,15 +101,17 @@ export const Default: Story = {
         },
         {
             name: 'checkbox',
-            parser: z.string().min(2, {message: 'Deve ter entre 2 e 50 caracteres'}).max(50, {message: 'Deve ter entre 2 e 50 caracteres'}),
             label: 'Checkbox',
             description: 'Aqui temos um exemplo de checkbox',
             type: 'checkbox',
-            basisSize: 'basis-1/3',
+            parser: z.array(z.string()).refine((value) => value.some((item) => item), {
+                message: "Selecione pelo menos um item",
+              }),
+            basis: 'basis-1/3',
             itemsGroup: [
                 {
                     value: 'teste',
-                    label: 'Novo Teste'
+                    label: 'Novo Teste',
                 },
                 {
                     value: 'teste2',
@@ -76,19 +121,21 @@ export const Default: Story = {
         },
           {
             name: 'radio',
-            parser: z.string().min(2, {message: 'Deve ter entre 2 e 50 caracteres'}).max(50, {message: 'Deve ter entre 2 e 50 caracteres'}),
+            parser: z.enum(["teste4", "teste5"], {
+                required_error: "You need to select a notification type.",
+              }),
             placeholder: '',
             label: 'Radio',
             defaultValue: '',
             description: 'Aqui temos um exemplo de radio',
-            basisSize: 'basis-1/3',
+            basis: 'basis-1/3',
             itemsGroup: [
                 {
-                    value: 'teste',
+                    value: 'teste4',
                     label: 'Novo Teste'
                 },
                 {
-                    value: 'teste2',
+                    value: 'teste5',
                     label: 'Novo Teste 2'
                 }
             ],
@@ -96,12 +143,12 @@ export const Default: Story = {
         },
         {
             name: 'select',
-            parser: z.string().min(2, {message: 'Deve ter entre 2 e 50 caracteres'}).max(50, {message: 'Deve ter entre 2 e 50 caracteres'}),
+            parser: requiredSelect,
             placeholder: '',
             label: 'Select',
             defaultValue: '',
             description: 'Aqui temos um exemplo de select',
-            basisSize: 'basis-1/3',
+            basis: 'basis-1/3',
             itemsGroup: [
                 {
                     value: 'teste',
@@ -115,15 +162,49 @@ export const Default: Story = {
             type: 'select'
         },
         {
-            name: 'file',
-            parser: z.string().min(2, {message: 'Deve ter entre 2 e 50 caracteres'}).max(50, {message: 'Deve ter entre 2 e 50 caracteres'}),
-            placeholder: '',
-            fileTypes: {
-                mimeType: [],
-                extensionsType: []
-            },
+            name: 'date',
+            parser: z.date({message: 'Preencha com uma data'}),
+            placeholder: 'Selecione ou escreva uma data',
+            label: 'Data',
             defaultValue: '',
+            description: 'Aqui temos um exemplo de datepicker',
+            type: 'date',
+            basis: 'basis-1/3',
+        },
+        {
+            name: 'autocomplete',
+            parser: requiredSelect,
+            placeholder: 'Opções',
+            label: 'Autocomplete',
+            defaultValue: '',
+            description: 'Aqui temos um exemplo de autocomplete',
+            type: 'autocomplete',
+            basis: 'basis-2/3',
+            itemsGroup: [
+                {
+                    value: 'novo-teste',
+                    label: 'Novo Teste'
+                },
+                {
+                    value: 'novo-teste2',
+                    label: 'Novo Teste 2'
+                }
+            ],
+        },
+        {
+            name: 'file',
+            parser:  z.instanceof(Object, {
+                message: "Each item must be a valid file",
+              }),
+            placeholder: '',
+            label: 'Texto',
+            defaultValue: '',
+            description: 'Aqui temos um exemplo de input file',
             type: 'file',
+            fileTypes: {
+                mimeType: ['image/jpeg', 'image/jpg', 'image/png'],
+                extensionsType: ['jpeg', 'jpg', 'png']
+            },
         },
       ]
     }
