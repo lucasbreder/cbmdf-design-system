@@ -6,23 +6,30 @@ import { formatBytes } from "@/helpers/formatBytes";
 import { useToast } from "@/hooks/use-toast";
 import { Toaster } from "../ui/toaster";
 import getIconNameByType from "@/helpers/getIconNameByType";
+import { ControllerRenderProps, FieldValues, UseFormReturn } from "react-hook-form";
 
 
 type FileDropProps = {
-    fileTypes: {
-        mimeType: Array<string>
-        extensionsType: Array<string>,
-    }
+    fileTypes: FileTypes
+    form:UseFormReturn
+    field: ControllerRenderProps<FieldValues, string>
     maxFileSize?: number, // @valores em bytes
-    progressUpload: Array<{
+    progressUpload?: Array<{
         name: string,
         progress: number
     }>,
     function?: () => void
 }
 
+export type FileTypes = {
+    mimeType: Array<string>
+    extensionsType: Array<string>,
+}
 
-const FileDrop = ({ fileTypes, maxFileSize, progressUpload }: FileDropProps) => {
+
+const FileDrop = ({ fileTypes, maxFileSize, progressUpload = [], field, form }: FileDropProps) => {
+
+
 
     const { toast } = useToast()
 
@@ -93,19 +100,24 @@ const FileDrop = ({ fileTypes, maxFileSize, progressUpload }: FileDropProps) => 
             setFiles(prev => {
                 const existingFiles = prev?.map(file => file.name);
                 const newFiles = items.filter(item => !existingFiles?.includes(item.name));
+                form.setValue(field.name, [...(prev || []), ...newFiles])
                 return [...(prev || []), ...newFiles];
             });
-
+            
         })
     }
 
     const handleInputUpload = () => {
-        if (inputRef.current?.files) processFiles(inputRef.current.files)
+        if (inputRef.current?.files) {processFiles(inputRef.current.files)}
+
+        
+            
     }
 
     const removeFile = (key: Number) => {
         const newFiles = files?.filter((file, index) => index !== key);
         setFiles(newFiles)
+        form.setValue(field.name, newFiles)
     }
 
 
@@ -168,7 +180,7 @@ const FileDrop = ({ fileTypes, maxFileSize, progressUpload }: FileDropProps) => 
                                         <td className={`border-b px-2 py-0 border-slate-300`}>{formatBytes(item.size)}</td>
                                         <td className={`border-b px-2 py-0 border-slate-300`}>
                                             <Progress
-                                                classBar={`duration-200 ${animateIcon && ` bg-primary/40` || `bg-primary/80`}`}
+                                                // classBar={`duration-200 ${animateIcon && ` bg-primary/40` || `bg-primary/80`}`}
                                                 className={`duration-200 h-2 w-24 rounded-none border ${animateIcon && ` border-primary/40` || `border-primary/80`}`}
                                                 value={(progressUpload.find(element => element.name === item.name))?.progress}
                                             />
