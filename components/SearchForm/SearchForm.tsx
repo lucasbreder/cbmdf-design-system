@@ -8,8 +8,8 @@ type SearchFormProps = {
 
 const SearchForm = ({placeholder, onChange}:SearchFormProps) => {
     return (
-       <div className="text-gray-500">
-            <FontAwesomeIcon className="absolute left-6 top-[22px]" icon={['fas', 'search']} />
+       <div className="text-gray-500 relative">
+            <FontAwesomeIcon className="absolute left-3 top-3" icon={['fas', 'search']} />
             <Input className="pl-10" placeholder={placeholder} onChange={(e) => {
                 onChange && onChange(e.target.value)
             }} />
