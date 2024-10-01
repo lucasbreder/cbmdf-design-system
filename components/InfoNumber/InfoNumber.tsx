@@ -1,3 +1,4 @@
+"use client"
 import { IconName } from "@fortawesome/fontawesome-svg-core"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
@@ -54,12 +55,12 @@ const InfoNumber = ({ number, title, icon, variant = "base", orientation }: Info
     const numberFormated = new Intl.NumberFormat().format(number)
 
 
-    return <div className={`flex text-primary gap-2 items-start ${orientationDef()}`}>
+    return <div className={`flex gap-2 items-center ${orientationDef()}`}>
         <div className="flex gap-2 items-center justify-items-stretch">
             <FontAwesomeIcon icon={['fas', icon]} size={variantIconDef()} />
             <div className={`${variantTitleDef()} font-light`}>{title}</div>
         </div>
-        <div className={`${variantnumberDef()} text- font-extrabold animate-fade-left-enter`}>{numberFormated}</div>
+        <div className={`${variantnumberDef()} text- font-extrabold`}>{numberFormated}</div>
     </div>
 }
 export default InfoNumber
