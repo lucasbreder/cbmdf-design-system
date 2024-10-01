@@ -1,4 +1,4 @@
-
+"use client"
 
 import { IconName } from "@fortawesome/fontawesome-svg-core"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -51,7 +51,7 @@ const variantItemDef = () => {
 
 
   return (
-    <NavigationMenu className={`${variantContainerDef()} px-4 py-5 w-max rounded-2xl`}>
+    <NavigationMenu className={`${variantContainerDef()} px-4 py-5 w-full rounded-2xl`}>
       <NavigationMenuList className={`flex flex-col ${variantListDef()} `}>
         {items.map((item,index) => (
           <NavigationMenuItem  key={index}>

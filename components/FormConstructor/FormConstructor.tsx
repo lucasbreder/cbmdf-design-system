@@ -115,7 +115,7 @@ const FormConstructorInner = ({form, onSubmit, fields, title, buttonLabel}:FormS
     return (
       <Form {...form}>
       <h2 className="font-bold text-3xl">{title}</h2>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 flex flex-wrap -mx-4 items-baseline" noValidate>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 flex flex-wrap -mx-4 items-baseline" noValidate>
         {
             fields.map((fieldItem,index) => {
                 return <FormField

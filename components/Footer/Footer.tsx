@@ -6,7 +6,7 @@ type FooterProps = {
 
 const Footer = ({children}:FooterProps) => {
     return (
-        <footer className="text-sm flex gap-5 justify-between">
+        <footer className="text-sm flex gap-5 justify-between py-6">
             {children}
         </footer>
     )
