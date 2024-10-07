@@ -27,7 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <div className="flex gap-6 mx-32 py-5 items-center">
-          <div className="w-52 h-16 relative"><Image className="object-contain p-2" src='/brand.svg' alt="" fill /></div>
+          <div className="w-52 h-16 relative"><Image className="object-contain" src='/brand.svg' alt="" fill /></div>
           <Header>
           <div className="bg-primary w-full rounded-md px-5 py-2 text-white flex gap-8 items-center justify-center">
             <InfoNumber icon="box-open" title="Transferências" number={20} variant="sm" />
