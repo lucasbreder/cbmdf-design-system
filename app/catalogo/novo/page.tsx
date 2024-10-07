@@ -16,6 +16,7 @@ export default function Home() {
         fieldsGroups={[['images', 'manual']]}
         buttonLabel="Enviar" 
         submitHandler={(e) => console.log(e)}/>
+
     </div>
 
   );
