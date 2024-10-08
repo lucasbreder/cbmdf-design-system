@@ -22,7 +22,7 @@ const Selector = ({ iconsOptions }: SelectorProps) => {
         <div className={`
             rounded-md
             bg-gray 
-            w-min
+         
             min-w-20
             max-h-10
             overflow-hidden

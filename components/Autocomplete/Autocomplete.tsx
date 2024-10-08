@@ -30,7 +30,7 @@ function Autocomplete({itemsGroup = [], placeholder, field, form}:AutocompletePr
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="justify-between"
+          className={`justify-between font-normal ${!field.value && 'text-gray-500'}`}
         >
           {field.value
             ? itemsGroup.find(

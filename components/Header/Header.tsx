@@ -6,7 +6,7 @@ type HeaderProps = {
 
 const Header = ({children}:HeaderProps) => {
     return (
-        <header className="flex gap-5 justify-start">
+        <header className="flex gap-5 justify-between items-center w-full">
             {children}
         </header>
     )
