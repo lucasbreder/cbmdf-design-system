@@ -15,7 +15,6 @@ const LinkItem = ({ title, href, icon, iconPosition = 'after' }: LinkProps) => {
     flex
     gap-2
     items-center
-    w-min
     text-primary
     font-bold
     ${iconPosition === 'before' && `flex-row-reverse`}`

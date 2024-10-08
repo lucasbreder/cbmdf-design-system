@@ -9,35 +9,75 @@ import {
 import { useState } from "react"
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "../ui/command"
 import { ItemsGroupItem } from "../FormConstructor/FormConstructor"
-import { ControllerRenderProps, FieldValues } from "react-hook-form"
+import { ControllerRenderProps, FieldValues, UseFormReturn } from "react-hook-form"
+import { Badge } from "../ui/badge"
+import { Input } from "../ui/input"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { toSlug } from "@/helpers/toSlug"
 
 type AutocompleteProps = {
   placeholder?: string
   itemsGroup?: ItemsGroupItem[]
   field: ControllerRenderProps<FieldValues, string>
-  form:any 
+  form:UseFormReturn
+  allowMany?: boolean
+  allowNew?: boolean
+  showSelectedBelow?: boolean
 }
 
 
-function Autocomplete({itemsGroup = [], placeholder, field, form}:AutocompleteProps) {
+function Autocomplete({itemsGroup = [], placeholder, field, form, allowMany, allowNew, showSelectedBelow}:AutocompleteProps) {
   const [open, setOpen] = useState(false)
-  const [value, setValue] = useState("")
-
+  const [openNew, setOpenNew] = useState(false)
+  const [items, setItems] = useState(itemsGroup)
   return (
-    <Popover>
+    <span className="relative">
+    <Popover open={open}>
       <PopoverTrigger asChild>
       <Button
           variant="outline"
           role="combobox"
-          aria-expanded={open}
-          className={`justify-between font-normal ${!field.value && 'text-gray-500'}`}
+          className={`pr-10 w-full justify-between font-normal ${!field.value && 'text-gray-500'}`}
+          onClick={() => {
+            setOpen(prev => !prev)
+          }}
         >
+          <div className="flex gap-2 text-gray-500">
           {field.value
-            ? itemsGroup.find(
-                (item) => item.value === field.value
-              )?.label
+                        ? 
+            Array.isArray(field.value) ?
+            field.value.length > 0 && !showSelectedBelow ? 
+              field.value.map((valueField, index) => {
+                return <Badge className="text-white flex gap-2" key={index}>
+
+                  {
+                    items.find(
+                      (item) => item.value === valueField
+                    )?.label
+                  }
+                  <FontAwesomeIcon icon={['fas', 'close']} onClick={() => {
+                      const removeItemIndex = field.value.indexOf(valueField)
+                      const updatedItems = field.value
+                      updatedItems.splice(removeItemIndex, 1)
+                      form.setValue(field.name, updatedItems)
+                      setOpen(false)
+                      setItems(prev =>
+                        prev.filter((item) => {
+                          return item.value !== valueField
+                        })
+                      )
+                  }} />
+                </Badge>
+              })
+              : placeholder
+
+            :
+            items.find(
+              (item) => item.value === field.value
+            )?.label
+          
             : placeholder}
-          {/* <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" /> */}
+          </div>
         </Button>
 
       </PopoverTrigger>
@@ -47,21 +87,18 @@ function Autocomplete({itemsGroup = [], placeholder, field, form}:AutocompletePr
           <CommandList>
             <CommandEmpty>Nada Encontrado</CommandEmpty>
             <CommandGroup>
-              {itemsGroup.map((item) => (
+              {items.map((item) => (
                
                <CommandItem
                value={item.label}
                key={item.value}
                onSelect={() => {
-                 form.setValue(field.name, item.value)
+                allowMany ? 
+                !field.value.includes(item.value) && form.setValue(field.name, [...form.getValues(field.name), item.value])
+                : form.setValue(field.name, item.value)
+                
                }}
              >
-                  {/* <Check
-                    className={cn(
-                      "mr-2 h-4 w-4",
-                      value === framework.value ? "opacity-100" : "opacity-0"
-                    )}
-                  /> */}
                   {item.label}
                 </CommandItem>
               ))}
@@ -70,6 +107,54 @@ function Autocomplete({itemsGroup = [], placeholder, field, form}:AutocompletePr
         </Command>
       </PopoverContent>
     </Popover>
+    {allowNew && <Popover open={openNew}>
+            <PopoverTrigger asChild className="cursor-pointer text-primary z-20 absolute right-4 top-3">
+              <FontAwesomeIcon icon={['fas', 'plus-circle']} onClick={() => {
+            setOpenNew(prev => !prev)
+          }}/>
+            </PopoverTrigger>
+            <PopoverContent>
+              <Input placeholder="Digite o novo item..." onKeyDown={(e:any) => {
+                if (e.key === 'Enter') {
+
+                  if(e.target.value) {
+                    const value = toSlug(e.target.value)
+                    setItems((prev) => [...prev, {
+                      value: value,
+                      label: e.target.value,
+                    }])
+
+                    setOpenNew(false)
+                    form.setValue(field.name, [...form.getValues(field.name), value])
+                    console.log(form.getValues())
+                  }
+                  
+                }
+                
+              }}/>
+            </PopoverContent>
+          </Popover>}
+          {showSelectedBelow && <div className="flex flex-col gap-2 mt-2">
+            {
+               Array.isArray(field.value) && field.value.map((valueField, index) => {
+                return <Badge className="text-white flex gap-2 justify-between cursor-pointer" key={index}>
+
+                  {
+                    items.find(
+                      (item) => item.value === valueField
+                    )?.label
+                  }
+                  <FontAwesomeIcon icon={['fas', 'close']} onClick={() => {
+                      const removeItemIndex = field.value.indexOf(valueField)
+                      const updatedItems = field.value
+                      updatedItems.splice(removeItemIndex, 1)
+                      form.setValue(field.name, updatedItems)
+                  }} />
+                </Badge>
+              })
+            }
+          </div>}
+    </span>
   )
 }
 
