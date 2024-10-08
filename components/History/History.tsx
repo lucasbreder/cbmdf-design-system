@@ -9,7 +9,7 @@ type History = {
 }
 
 
-const ImagesGallery = ({ title, description, author, date }: History) => {
+const History = ({ title, description, author, date }: History) => {
     return (
         <div className="flex flex-col gap-3 text-primary">
             <div className="text-xl font-semibold">{title}</div>
@@ -22,4 +22,4 @@ const ImagesGallery = ({ title, description, author, date }: History) => {
     )
 }
 
-export default ImagesGallery
+export default History
