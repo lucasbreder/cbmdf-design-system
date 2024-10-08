@@ -30,6 +30,7 @@ function Autocomplete({itemsGroup = [], placeholder, field, form, allowMany, all
   const [open, setOpen] = useState(false)
   const [openNew, setOpenNew] = useState(false)
   const [items, setItems] = useState(itemsGroup)
+  const [placeholderState, setPlaceholderState] = useState('Digite o novo item...')
   return (
     <span className="relative">
     <Popover open={open}>
@@ -61,11 +62,16 @@ function Autocomplete({itemsGroup = [], placeholder, field, form, allowMany, all
                       updatedItems.splice(removeItemIndex, 1)
                       form.setValue(field.name, updatedItems)
                       setOpen(false)
-                      setItems(prev =>
-                        prev.filter((item) => {
-                          return item.value !== valueField
-                        })
-                      )
+
+                      const hasOnOriginal = itemsGroup.find((item) => item.value === valueField)
+
+                      if(!hasOnOriginal) {
+                        setItems(prev =>
+                          prev.filter((item) => {
+                            return item.value !== valueField
+                          })
+                        )
+                      }
                   }} />
                 </Badge>
               })
@@ -114,11 +120,15 @@ function Autocomplete({itemsGroup = [], placeholder, field, form, allowMany, all
           }}/>
             </PopoverTrigger>
             <PopoverContent>
-              <Input placeholder="Digite o novo item..." onKeyDown={(e:any) => {
+              <Input placeholder={placeholderState} onKeyDown={(e:any) => {
                 if (e.key === 'Enter') {
-
-                  if(e.target.value) {
-                    const value = toSlug(e.target.value)
+                  const value = toSlug(e.target.value)
+                  const hasOnList = items.find((item) => item.value === value)
+                  if(hasOnList) {
+                    e.target.value = ''
+                    setPlaceholderState('Item já existem, digite outro nome')
+                  }
+                  if(e.target.value && !hasOnList) {
                     setItems((prev) => [...prev, {
                       value: value,
                       label: e.target.value,
@@ -126,7 +136,7 @@ function Autocomplete({itemsGroup = [], placeholder, field, form, allowMany, all
 
                     setOpenNew(false)
                     form.setValue(field.name, [...form.getValues(field.name), value])
-                    console.log(form.getValues())
+                    setPlaceholderState('Digite o novo item...')
                   }
                   
                 }
