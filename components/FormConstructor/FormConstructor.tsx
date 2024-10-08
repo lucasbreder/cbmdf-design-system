@@ -13,7 +13,10 @@ type FormSchema = {
   fields: InputSchema[]
   isSteped?:boolean
   submitHandler?: (arg:any) => any
+  additionalFeatures?: ['option-bellow' | 'allow-new' | 'allow-many'];
 }
+
+type additionalFeatures = 'selected-bellow' | 'allow-new' | 'allow-many';
 
 type BaseInputSchema = {
   name: string
@@ -26,6 +29,7 @@ type BaseInputSchema = {
   fileTypes?: FileTypes
   itemsGroup?: ItemsGroupItem[]
   basis?: string
+  additionalFeatures?: additionalFeatures[];
 };
 
 type SectionSchema = BaseInputSchema & {
@@ -45,6 +49,7 @@ type FileInputSchema = BaseInputSchema & {
 type GroupInputSchema = BaseInputSchema & {
   type: 'checkbox' | 'radio' | 'select' | 'autocomplete';
   itemsGroup: ItemsGroupItem[];
+
 };
 
 export type ItemsGroupItem = {

@@ -20,7 +20,14 @@ export const showInput = (form:UseFormReturn, field:ControllerRenderProps<FieldV
     const textareaContainer = <Textarea {...field} placeholder={formItem.placeholder} />
     const fileContainer = formItem.fileTypes ? <FileDrop form={form} field={field} fileTypes={formItem.fileTypes} /> : defaultContainer
     const datePickerContainer = <DatePicker formItem={formItem} form={form} field={field} />
-    const autocompleteContainer = <Autocomplete form={form} field={field} itemsGroup={formItem.itemsGroup} placeholder={formItem.placeholder} />
+    const autocompleteContainer = <Autocomplete 
+    showSelectedBelow={formItem.additionalFeatures?.includes('selected-bellow')} 
+    allowNew={formItem.additionalFeatures?.includes('allow-new')} 
+    allowMany={formItem.additionalFeatures?.includes('allow-many')} 
+    form={form} 
+    field={field} 
+    itemsGroup={formItem.itemsGroup} 
+    placeholder={formItem.placeholder} />
 
     const handlerInput:any = {
       checkbox: checkboxContainer,
