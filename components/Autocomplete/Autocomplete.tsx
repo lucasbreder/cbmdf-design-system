@@ -9,19 +9,18 @@ import {
 import { useState } from "react"
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "../ui/command"
 import { ItemsGroupItem } from "../FormConstructor/FormConstructor"
-import { ControllerRenderProps, FieldValues } from "react-hook-form"
+import { ControllerRenderProps, FieldValues, UseFormReturn } from "react-hook-form"
 
 type AutocompleteProps = {
   placeholder?: string
   itemsGroup?: ItemsGroupItem[]
   field: ControllerRenderProps<FieldValues, string>
-  form:any 
+  form:UseFormReturn 
 }
 
 
 function Autocomplete({itemsGroup = [], placeholder, field, form}:AutocompleteProps) {
   const [open, setOpen] = useState(false)
-  const [value, setValue] = useState("")
 
   return (
     <Popover>
@@ -33,9 +32,9 @@ function Autocomplete({itemsGroup = [], placeholder, field, form}:AutocompletePr
           className={`justify-between font-normal ${!field.value && 'text-gray-500'}`}
         >
           {field.value
-            ? itemsGroup.find(
-                (item) => item.value === field.value
-              )?.label
+            ? field.value.forEach((value:string) => {
+                return value
+            })
             : placeholder}
           {/* <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" /> */}
         </Button>
@@ -53,7 +52,7 @@ function Autocomplete({itemsGroup = [], placeholder, field, form}:AutocompletePr
                value={item.label}
                key={item.value}
                onSelect={() => {
-                 form.setValue(field.name, item.value)
+                 form.setValue(field.name, [...form.getValues(field.name), item.value])
                }}
              >
                   {/* <Check
