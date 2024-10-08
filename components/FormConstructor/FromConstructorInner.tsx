@@ -5,10 +5,11 @@ import FormFieldConstructor from "./FormFieldConstructor"
 import Step from "../Steps/Steps"
 import { Form } from "../ui/form"
 import Steps from "../Steps/Steps"
+import { UseFormReturn } from "react-hook-form"
 
 type FormSchemaInner = {
     fieldsGroup: InputSchema[][]
-    form: any,
+    form: UseFormReturn,
     onSubmit: any
     title?: string
     buttonLabel?:string
@@ -28,7 +29,7 @@ const FormConstructorInner = ({form, onSubmit, fieldsGroup, title, buttonLabel, 
         : 
         fieldsGroup.map((fields, index) => {
             return (
-            <div key={index} className="flex flex-wrap -mx-2 items-end justify-start">
+            <div key={index} className="flex flex-wrap -mx-2 items-start justify-start">
                 {
                 fields.map((fieldItem,index) => {
                     return <FormFieldConstructor key={index} form={form} fieldItem={fieldItem} />
