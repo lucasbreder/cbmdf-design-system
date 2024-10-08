@@ -16,7 +16,7 @@ const ImagesGallery = ({ images, hasFeaturedImage }: ImagesGallery) => {
             {
                 images.map((item, index) => {
                     return (
-                        <div key={index} className={`${hasFeaturedImage && index === 0 ? 'col-span-2' : 'col-span-1'} rounded-md overflow-hidden relative w-full h-60`}>
+                        <div key={index} className={`${hasFeaturedImage && index === 0 ? 'col-span-2 h-60' : 'col-span-1 h-40'} rounded-md overflow-hidden relative w-full`}>
                             <Image className="object-cover" src={item.src} alt={item.title} fill />
                         </div>
                     )
