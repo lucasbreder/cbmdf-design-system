@@ -15,6 +15,7 @@ type FormSchemaInner = {
     buttonLabel?:string
     groupsPosition?: 'reverse'
     isSteped?: boolean
+    additionalFeatures?: ['option-bellow' | 'allow-new' | 'allow-many'];
   }
 
 const FormConstructorInner = ({form, onSubmit, fieldsGroup, title, buttonLabel, groupsPosition, isSteped}:FormSchemaInner) => {
