@@ -125,8 +125,7 @@ export const Default: Story = {
                 "idade": 35,
                 "email": "pedro@example.com"
             }
-        ]`} />,
-            <div>CBMDF - Todos os direitos reservados</div>,   
+        ]`} />, 
         ],
     },
 };
