@@ -8,8 +8,6 @@ import LineChartMaterial from "@/components/LineChartMaterial/LineChartMaterial"
 import Title from "@/components/Title/Title";
 import Tools from "@/components/Tools/Tools";
 import { Badge } from "@/components/ui/badge";
-import Tools from "@/components/Tools/Tools";
-import { Badge } from "@/components/ui/badge";
 import { materialCards } from "@/data/fakeData";
 import { useParams } from "next/navigation";
 
@@ -60,15 +58,15 @@ export default function CatalogoSingle() {
             <div className="flex flex-col basis-3/6 gap-5 ">
             {data.categories && <div className="flex gap-2 text-white">
               {data.categories.map((category) => {
-              return <Badge>{category}</Badge>
+              return <Badge>{category.title}</Badge>
             })}
             </div>}
             
-              <Title title={data.name} />
+              <Title title={data.title} />
               <p className="font-light">{data.description}</p>
-             { data.variants && <div className="grid grid-cols-2 gap-6 my-6">
+             { data.variations && <div className="grid grid-cols-2 gap-6 my-6">
               {
-                data.variants && data.variants.map((variation, index) => {
+                data.variations && data.variations.map((variation, index) => {
                   return <CardContainer key={index} title={variation.title} description={variation.value} />
                 })
               }
