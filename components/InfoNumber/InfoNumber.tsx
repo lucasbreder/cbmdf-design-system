@@ -8,19 +8,22 @@ type InfoNumberProps = {
     icon: IconName
     variant?: "sm" | "base"
     orientation?: "vertical" | "horizontal"
+    position?: "default" | "reverse"
+    prefix?: string
+    sufix?:string
 }
 
 
-const InfoNumber = ({ number, title, icon, variant = "base", orientation }: InfoNumberProps) => {
+const InfoNumber = ({ number, title, icon, variant = "base", orientation, position, prefix, sufix }: InfoNumberProps) => {
 
     const orientationDef = () => {
         switch (orientation) {
             case 'vertical':
-                return 'flex-col items-start max-w-40'
+                return `flex-col items-start max-w-40 items-start ${position === "reverse" && "flex-col-reverse gap-1"}`
             case 'horizontal':
-                return 'flex-row items-center max-w-64'
+                return `flex-row items-center max-w-64 items-center ${position === "reverse" && "flex-row-reverse"}`
             default:
-                return ''
+                return 'gap-2'
         }
     }
 
@@ -30,7 +33,7 @@ const InfoNumber = ({ number, title, icon, variant = "base", orientation }: Info
             case 'sm':
                 return 'sm'
             case 'base':
-                return 'xl'
+                return 'lg'
         }
     }
 
@@ -46,7 +49,7 @@ const InfoNumber = ({ number, title, icon, variant = "base", orientation }: Info
     const variantnumberDef = () => {
         switch (variant) {
             case 'sm':
-                return 'text-xl'
+                return 'text-lg'
             case 'base':
                 return 'text-3xl'
         }
@@ -55,12 +58,15 @@ const InfoNumber = ({ number, title, icon, variant = "base", orientation }: Info
     const numberFormated = new Intl.NumberFormat().format(number)
 
 
-    return <div className={`flex gap-2 items-center ${orientationDef()}`}>
-        <div className="flex gap-2 items-center justify-items-stretch">
-            <FontAwesomeIcon icon={['fas', icon]} size={variantIconDef()} />
+    return <div className={`flex ${orientationDef()}`}>
+        <div className="flex gap-2 items-center">
+            {position !== "reverse" && <FontAwesomeIcon icon={['fas', icon]} width={20} size={variantIconDef()} />}
             <div className={`${variantTitleDef()} font-light`}>{title}</div>
         </div>
-        <div className={`${variantnumberDef()} text- font-extrabold`}>{numberFormated}</div>
+        <div className={`${variantnumberDef()} font-bold flex items-center justify-start gap-2`}>
+            {position === "reverse" && <FontAwesomeIcon icon={['fas', icon]} width={20} size={variantIconDef()} />}
+            {prefix} {numberFormated} {sufix}
+        </div>
     </div>
 }
 export default InfoNumber
