@@ -5,7 +5,7 @@ import { Label } from "../ui/label"
 
 type CheckboxContainerProps = {
     field:ControllerRenderProps<FieldValues, string>
-    formItem:InputSchema
+    formItem:InputSchema<any>
 }
 
 const CheckboxContainer = ({formItem, field}:CheckboxContainerProps) => {

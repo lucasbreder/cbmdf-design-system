@@ -4,7 +4,7 @@ import { Input } from "../ui/input"
 
 type CheckboxContainerProps = {
     field:ControllerRenderProps<FieldValues, string>
-    formItem:InputSchema
+    formItem:InputSchema<any>
 }
 
 const InputContainer = ({formItem, field}:CheckboxContainerProps) => {
