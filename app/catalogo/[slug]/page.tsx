@@ -58,15 +58,15 @@ export default function CatalogoSingle() {
             <div className="flex flex-col basis-3/6 gap-5 ">
             {data.categories && <div className="flex gap-2 text-white">
               {data.categories.map((category) => {
-              return <Badge>{category.title}</Badge>
+              return <Badge>{category}</Badge>
             })}
             </div>}
             
-              <Title title={data.title} />
+              <Title title={data.name} />
               <p className="font-light">{data.description}</p>
-             { data.variations && <div className="grid grid-cols-2 gap-6 my-6">
+             { data.variants && <div className="grid grid-cols-2 gap-6 my-6">
               {
-                data.variations && data.variations.map((variation, index) => {
+                data.variants && data.variants.map((variation, index) => {
                   return <CardContainer key={index} title={variation.title} description={variation.value} />
                 })
               }
