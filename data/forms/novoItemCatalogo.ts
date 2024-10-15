@@ -1,10 +1,11 @@
 import { InputSchema } from "@/components/FormConstructor/FormConstructor"
 import { required } from "@/helpers/parsers/parsers"
+import { CatalogItem } from "@/models/catalogItem"
 import { z } from "zod"
 
-export const novoItemCatalogoForm:InputSchema[] = [
+export const novoItemCatalogoForm:InputSchema<CatalogItem>[] = [
     {
-        name: 'nome',
+        name: 'name',
         parser: required
         .max(50, {
             message: 'Deve ter até 50 caracteres'
@@ -13,46 +14,23 @@ export const novoItemCatalogoForm:InputSchema[] = [
         type: 'text'
     },
     {
-        name: 'marca',
-        parser: required
-        .max(50, {
-            message: 'Deve ter até 50 caracteres'
-        }),
-        placeholder: 'Marca',
-        defaultValue: '',
-        type: 'text',
-        basis: 'basis-1/4'
-    },
-    {
-        name: 'modelo',
-        parser: required
-        .max(50, {
-            message: 'Deve ter até 50 caracteres'
-        }),
-        placeholder: 'Modelo',
-        defaultValue: '',
-        type: 'text',
-        basis: 'basis-1/4'
-    },
-    {
-        name: 'vida-util',
+        name: 'lifeCicle',
         parser: z.coerce.number().min(1,{
             message: 'Deve ser maior que 1'
         }),
         placeholder: 'Vida útil média',
-        defaultValue: '',
+
         type: 'number',
         basis: 'basis-1/2'
     },
     {
-        name: 'apelidos',
-        parser: required
-        .max(50, {
-            message: 'Deve ter até 50 caracteres'
-        }),
+        name: 'nicknames',
+        parser: z.array(z.string()).refine((value) => value.some((item) => item), {
+            message: "Selecione pelo menos um item",
+          }),
         placeholder: 'Apelidos',
         additionalFeatures: ['allow-many', 'allow-new'],
-        defaultValue: '',
+
         type: 'autocomplete',
         basis: 'basis-1/3',
         itemsGroup: [
@@ -71,45 +49,44 @@ export const novoItemCatalogoForm:InputSchema[] = [
         ]
     },
     {
-        name: 'cod-sigmanet',
+        name: 'sigmanetCode',
         parser: z.coerce.number().min(1,{
             message: 'Deve tser maior que 1'
         }),
         placeholder: 'Código SIGMANET',
-        defaultValue: '',
+
         type: 'number',
         basis: 'basis-1/3'
     },
     {
-        name: 'codigo-barras',
+        name: 'barCode',
         parser: required
         .max(50, {
             message: 'Deve ter até 50 caracteres'
         }),
         placeholder: 'Código de Barras',
-        defaultValue: '',
+
         type: 'text',
         basis: 'basis-1/3'
     },
     {
-        name: 'setorial',
+        name: 'owner',
         parser: required
         .max(50, {
             message: 'Deve ter até 50 caracteres'
         }),
         placeholder: 'Setorial Responsável',
-        defaultValue: '',
+
         type: 'text',
         basis: 'basis-1/2'
     },
     {
-        name: 'categorias',
-        parser: required
-        .max(50, {
-            message: 'Deve ter até 50 caracteres'
-        }),
+        name: 'categories',
+        parser: z.array(z.string()).refine((value) => value.some((item) => item), {
+            message: "Selecione pelo menos um item",
+          }),
         placeholder: 'Categorias',
-        defaultValue: '',
+
         type: 'autocomplete',
         basis: 'basis-1/2',
         itemsGroup: [
@@ -120,13 +97,13 @@ export const novoItemCatalogoForm:InputSchema[] = [
         ]
     },
     {
-        name: 'observacoes',
+        name: 'obs',
         parser: required
         .max(50, {
             message: 'Deve ter até 50 caracteres'
         }),
         placeholder: 'Observações',
-        defaultValue: '',
+
         type: 'textarea',
         itemsGroup: [
             {
@@ -141,13 +118,12 @@ export const novoItemCatalogoForm:InputSchema[] = [
         type: "section"
     },
     {
-        name: 'caracteristicas',
+        name: 'features',
         basis: 'basis-1/2',
         parser: z.array(z.string()).refine((value) => value.some((item) => item), {
             message: "Selecione pelo menos um item",
           }),
-        placeholder: 'Observações',
-        defaultValue: '',
+
         type: 'checkbox',
         itemsGroup: [
             {
@@ -161,13 +137,12 @@ export const novoItemCatalogoForm:InputSchema[] = [
         ]
     },
     {
-        name: 'variacoes',
+        name: 'featureUnique',
         basis: 'basis-1/2',
         parser: z.enum(["material-permanente", "material-consumo"], {
             required_error: "You need to select a notification type.",
           }),
-        placeholder: 'Observações',
-        defaultValue: '',
+
         type: 'radio',
         itemsGroup: [
             {
@@ -186,42 +161,42 @@ export const novoItemCatalogoForm:InputSchema[] = [
         type: "section"
     },
     {
-        name: 'estoque-max',
+        name: 'maxStock',
         parser: z.coerce.number().min(1,{
             message: 'Deve tser maior que 1'
         }),
         placeholder: 'Estoque Máximo',
-        defaultValue: '',
+
         type: 'number',
         basis: 'basis-1/6'
     },
     {
-        name: 'estoque-min',
+        name: 'minStock',
         parser: z.coerce.number().min(1,{
             message: 'Deve tser maior que 1'
         }),
         placeholder: 'Estoque Mínimo',
-        defaultValue: '',
+
         type: 'number',
         basis: 'basis-1/6'
     },
     {
-        name: 'tempo-pedido',
+        name: 'orderTime',
         parser: z.coerce.number().min(1,{
             message: 'Deve tser maior que 1'
         }),
         placeholder: 'Tempo de Pedido',
-        defaultValue: '',
+
         type: 'number',
         basis: 'basis-1/6'
     },
     {
-        name: 'images',
+        name: 'gallery',
         parser: z.instanceof(Object, {
             message: "Each item must be a valid file",
           }),
         placeholder: 'Imagens',
-        defaultValue: '',
+
         type: 'file',
         fileTypes: {
             mimeType: ['image/jpeg', 'image/jpg', 'image/png'],
@@ -229,12 +204,12 @@ export const novoItemCatalogoForm:InputSchema[] = [
         },
     },
     {
-        name: 'manual',
+        name: 'documents',
         parser: z.instanceof(Object, {
             message: "Each item must be a valid file",
           }),
         placeholder: 'Manuais',
-        defaultValue: '',
+
         type: 'file',
         fileTypes: {
             mimeType: ['application/pdf'],
