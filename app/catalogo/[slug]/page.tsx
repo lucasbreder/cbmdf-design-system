@@ -1,11 +1,15 @@
 "use client"
 import { BreadcrumbContainer } from "@/components/BreadcrumbContainer/BreadcrumbContainer";
 import CardContainer from "@/components/CardContainer/CardContainer";
+import { BreadcrumbContainer } from "@/components/BreadcrumbContainer/BreadcrumbContainer";
+import CardContainer from "@/components/CardContainer/CardContainer";
 import Header from "@/components/Header/Header";
 import ImagesGallery from "@/components/ImagesGallery/ImagesGallery";
 import InfoNumber from "@/components/InfoNumber/InfoNumber";
 import LineChartMaterial from "@/components/LineChartMaterial/LineChartMaterial";
 import Title from "@/components/Title/Title";
+import Tools from "@/components/Tools/Tools";
+import { Badge } from "@/components/ui/badge";
 import Tools from "@/components/Tools/Tools";
 import { Badge } from "@/components/ui/badge";
 import { materialCards } from "@/data/fakeData";
@@ -77,6 +81,7 @@ export default function CatalogoSingle() {
             </div>
           </div>
           <div className="flex flex-col gap-10 pl-10 basis-5/12">
+          <div className="flex flex-col gap-10 pl-10 basis-5/12">
             <div className="grid grid-cols-3 gap-4">
             {data.maxStock && <div ><InfoNumber position="reverse" orientation="vertical" number={data.maxStock} title='estoque máximo' icon="arrow-up"   /></div>}
             {data.minStock && <div ><InfoNumber position="reverse" orientation="vertical" number={data.minStock} title='estoque mínimo' icon="arrow-down"   /></div>}
@@ -87,8 +92,10 @@ export default function CatalogoSingle() {
              </div>
             <div>
               <Title title="Balanço" type="h4"/>
+              <Title title="Balanço" type="h4"/>
               <LineChartMaterial dataKey="balance" chartConfig={{
             balance: {
+              label: "Balanço Real",
               label: "Balanço Real",
               color: "#2563eb",
             },
@@ -97,6 +104,18 @@ export default function CatalogoSingle() {
               color: "#60a5fa",
             },
           }} chartData={[
+            { month: "Jan", balance: 300, idealBalance: 200 },
+            { month: "Fev", balance: 260, idealBalance: 150 },
+            { month: "Mar", balance: 237, idealBalance: 100 },
+            { month: "Abr", balance: 73, idealBalance: 50 },
+            { month: "Mai", balance: 209, idealBalance: [300] },
+            { month: "Jun", balance: 214, idealBalance: 250 },
+            { month: "Jul", balance: 150, idealBalance: 200 },
+            { month: "Ago", balance: 120, idealBalance: 150 },
+            { month: "Set", balance: 100, idealBalance: 100 },
+            { month: "Out", balance: 200, idealBalance: 50 },
+            { month: "Nov", balance: 150, idealBalance: 300 },
+            { month: "Dez", balance: 100, idealBalance: 250 },
             { month: "Jan", balance: 300, idealBalance: 200 },
             { month: "Fev", balance: 260, idealBalance: 150 },
             { month: "Mar", balance: 237, idealBalance: 100 },
