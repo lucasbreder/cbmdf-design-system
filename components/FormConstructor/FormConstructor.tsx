@@ -10,69 +10,71 @@ type FormSchema = {
   fieldsGroupsNumber?: number
   fieldsGroups?: string[][]
   groupsPosition?: 'reverse'
-  fields: InputSchema[]
+  fields: InputSchema<any>[]
   isSteped?:boolean
   submitHandler?: (arg:any) => any
   additionalFeatures?: ['option-bellow' | 'allow-new' | 'allow-many'];
 }
 
-type additionalFeatures = 'selected-bellow' | 'allow-new' | 'allow-many';
+type AdditionalFeatures = 'selected-bellow' | 'allow-new' | 'allow-many';
 
-type BaseInputSchema = {
-  name: string
-  parser?: ZodTypeAny
-  mask?: (arg:string) => any
-  placeholder?: string
-  label?: string
-  defaultValue?: string
-  description?: string
-  fileTypes?: FileTypes
-  itemsGroup?: ItemsGroupItem[]
-  basis?: string
-  additionalFeatures?: additionalFeatures[];
-};
-
-type SectionSchema = BaseInputSchema & {
-  type: 'section';
-  label?: string
-};
-
-type TextInputSchema = BaseInputSchema & {
-  type: 'text' | 'number' | 'email' | 'textarea' | 'file' | 'date';
-};
-
-type FileInputSchema = BaseInputSchema & {
-  type: 'file';
-  fileTypes: FileTypes
-};
-
-type GroupInputSchema = BaseInputSchema & {
-  type: 'checkbox' | 'radio' | 'select' | 'autocomplete';
-  itemsGroup: ItemsGroupItem[];
-
-};
-
-export type ItemsGroupItem = {
-  value: string
-  label: string
+interface BaseInputSchema<T> {
+  name: keyof T | '';
+  parser?: ZodTypeAny;
+  mask?: (arg: string) => any;
+  placeholder?: string;
+  label?: string;
+  defaultValue?: any;
+  description?: string;
+  fileTypes?: FileTypes;
+  basis?: string;
+  additionalFeatures?: AdditionalFeatures[];
+  itemsGroup?: ItemsGroupItem[];
 }
 
-export type InputSchema = TextInputSchema | GroupInputSchema | FileInputSchema | SectionSchema;
+interface SectionSchema<T> extends BaseInputSchema<T> {
+  type: 'section';
+}
+
+interface TextInputSchema<T> extends BaseInputSchema<T> {
+  type: 'text' | 'number' | 'email' | 'textarea' | 'file' | 'date';
+}
+
+interface FileInputSchema<T> extends BaseInputSchema<T> {
+  type: 'file';
+  fileTypes: FileTypes;
+}
+
+interface GroupInputSchema<T> extends BaseInputSchema<T> {
+  type: 'checkbox' | 'radio' | 'select' | 'autocomplete';
+  itemsGroup: ItemsGroupItem[];
+}
+
+export interface ItemsGroupItem {
+  value: string;
+  label: string;
+}
+
+export type InputSchema<T> =
+  | TextInputSchema<T>
+  | GroupInputSchema<T>
+  | FileInputSchema<T>
+  | SectionSchema<T>;
 
 
 const FormConstructor = ({fields, title, submitHandler, buttonLabel, fieldsGroupsNumber = 1, fieldsGroups, groupsPosition, isSteped}:FormSchema) => {
 
   const formSchemaObject:any = {}
   const formDefaultValuesObject:any = {}
-  const fieldsByGroup:InputSchema[][] = []
+  const fieldsByGroup:InputSchema<any>[][] = []
 
   if(fieldsGroups) {
-    const noIncludedGroupArr:InputSchema[] = []
+    const noIncludedGroupArr:InputSchema<any>[] = []
     fieldsGroups.forEach((group) => {
-      const includedGroupArr:InputSchema[] = []
+      const includedGroupArr:InputSchema<any>[] = []
 
       fields.forEach(item => {
-        group.includes(item.name) ? includedGroupArr.push(item) : noIncludedGroupArr.push(item)
+        group.includes(item.name as string) ? includedGroupArr.push(item) : noIncludedGroupArr.push(item)
       })
 
       fieldsByGroup.push(includedGroupArr)
