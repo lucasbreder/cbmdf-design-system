@@ -17,7 +17,41 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body>
+        <div className="flex gap-6 mx-32 py-5 items-center">
+          <div className="w-52 h-16 relative"><Image className="object-contain p-2" src='/brand.svg' alt="" fill /></div>
+          <Header>
+          <div className="bg-primary w-full rounded-md px-5 py-2 text-white flex gap-8 items-center justify-center">
+            <InfoNumber icon="box-open" title="Transferências" number={20} variant="sm" />
+            <InfoNumber icon="house" title="Cautelas" number={50} variant="sm" />
+            <InfoNumber icon="calendar" title="Vencendo" number={200} variant="sm" />
+            <InfoNumber icon="chart-line" title="Crescimento" number={120} variant="sm" />
+            <InfoNumber icon="building" title="Itens sem local" number={450} variant="sm" />
+          </div>
+          <div className="flex gap-3 items-center">
+            
+            <div className="font-bold">Sgt Nome</div>
+            <div className="w-14 h-14 relative border-2 rounded-full overflow-hidden">
+              <Image className="object-contain" src='/materials/5.jpg' alt="" fill /></div>
+          </div>
+          </Header>
+        </div>
+        <div className="flex gap-6 mx-32">
+        <Aside>
+          <Nav items={nav} />
+          <Nav items={localsNav} seeMoreUrl="/locais" variant="dark" size="sm" />
+        </Aside>
+        <div className="flex flex-col w-full">
+        <PageContainer>
+          {children}
+        </PageContainer>
+        <Footer>
+            <div>St. B Norte QNB 1 - Taguatinga, Brasília - DF - CEP 72115-010</div>
+            <div>CBMDF - Todos os direitos reservados</div>
+        </Footer>
+        </div>
+      </div>
+      </body>
     </html>
   );
 }

@@ -14,7 +14,6 @@ export const deepRemoveItem = (place: PlaceProps, targetId: number, item: ItemPr
         if (index != -1) {
             place.items.splice(index, 1)
         }
-        console.log(place)
 
         return place
     };
