@@ -13,9 +13,10 @@ export default function Home() {
         fields={novoItemCatalogoForm} 
         title="Novo Item de Catálogo"
         groupsPosition="reverse"
-        fieldsGroups={[['images', 'manual']]}
+        fieldsGroups={[['gallery', 'documents']]}
         buttonLabel="Enviar" 
         submitHandler={(e) => console.log(e)}/>
+
     </div>
 
   );

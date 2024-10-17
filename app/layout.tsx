@@ -1,9 +1,17 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-
 import "./globals.css";
+import Aside from "@/components/Aside/Aside";
+import Nav from "@/components/Nav/Nav";
+import { localsNav, nav } from "@/data/fakeData";
+import PageContainer from "@/components/PageContainer/PageContainer";
+import Footer from "@/components/Footer/Footer";
+import Header from "@/components/Header/Header";
+import '@fortawesome/fontawesome-svg-core/styles.css';
+import { config } from '@fortawesome/fontawesome-svg-core';
+import Image from "next/image";
+import InfoNumber from "@/components/InfoNumber/InfoNumber";
+config.autoAddCss = false; /* eslint-disable import/first */
 
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",

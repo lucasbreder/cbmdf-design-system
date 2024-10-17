@@ -37,7 +37,7 @@ export default function Catalogo() {
         </Header>
         {contentView === 'blocks' && <div className={`flex flex-wrap -mx-4 animate-fade-left-enter`}>
         {materialCards.map((item,index) => {
-          return <div className="basis-1/4 p-4"><MaterialCard url={`/catalogo/${item.slug}`} key={index} {...item} /></div>
+          return <div className="basis-1/4 p-4"><MaterialCard showCategories={true} url={`/catalogo/${item.slug}`} key={index} {...item} /></div>
         })}
         </div>}
         {contentView === 'list' && <div className={`flex flex-wrap -mx-4 animate-fade-left-enter`}><TableGrid hideColumns={['id',  'categories']} jsonData={tablegrid}/></div>}
