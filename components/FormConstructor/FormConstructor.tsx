@@ -10,69 +10,78 @@ type FormSchema = {
   fieldsGroupsNumber?: number
   fieldsGroups?: string[][]
   groupsPosition?: 'reverse'
-  fields: InputSchema[]
+  fields: InputSchema<any>[]
   isSteped?:boolean
   submitHandler?: (arg:any) => any
   additionalFeatures?: ['option-bellow' | 'allow-new' | 'allow-many'];
 }
 
-type additionalFeatures = 'selected-bellow' | 'allow-new' | 'allow-many';
+type AdditionalFeatures = 'selected-bellow' | 'allow-new' | 'allow-many';
 
-type BaseInputSchema = {
-  name: string
-  parser?: ZodTypeAny
-  mask?: (arg:string) => any
-  placeholder?: string
-  label?: string
-  defaultValue?: string
-  description?: string
-  fileTypes?: FileTypes
-  itemsGroup?: ItemsGroupItem[]
-  basis?: string
-  additionalFeatures?: additionalFeatures[];
-};
-
-type SectionSchema = BaseInputSchema & {
-  type: 'section';
-  label?: string
-};
-
-type TextInputSchema = BaseInputSchema & {
-  type: 'text' | 'number' | 'email' | 'textarea' | 'file' | 'date';
-};
-
-type FileInputSchema = BaseInputSchema & {
-  type: 'file';
-  fileTypes: FileTypes
-};
-
-type GroupInputSchema = BaseInputSchema & {
-  type: 'checkbox' | 'radio' | 'select' | 'autocomplete';
-  itemsGroup: ItemsGroupItem[];
-
-};
-
-export type ItemsGroupItem = {
-  value: string
-  label: string
+interface BaseInputSchema<T> {
+  name: keyof T | '';
+  parser?: ZodTypeAny;
+  mask?: (arg: string) => any;
+  placeholder?: string;
+  label?: string;
+  defaultValue?: any;
+  description?: string;
+  fileTypes?: FileTypes;
+  basis?: string;
+  additionalFeatures?: AdditionalFeatures[];
+  itemsGroup?: ItemsGroupItem[];
+  repeaterGroup?: InputSchema<any>[];
 }
 
-export type InputSchema = TextInputSchema | GroupInputSchema | FileInputSchema | SectionSchema;
+interface SectionSchema<T> extends BaseInputSchema<T> {
+  type: 'section';
+}
+
+interface TextInputSchema<T> extends BaseInputSchema<T> {
+  type: 'text' | 'number' | 'email' | 'textarea' | 'file' | 'date';
+}
+
+interface FileInputSchema<T> extends BaseInputSchema<T> {
+  type: 'file';
+  fileTypes: FileTypes;
+}
+
+interface RepeaterInputSchema<T> extends BaseInputSchema<T> {
+  type: 'repeater';
+  repeaterGroup: InputSchema<any>[];
+}
+
+interface GroupInputSchema<T> extends BaseInputSchema<T> {
+  type: 'checkbox' | 'radio' | 'select' | 'autocomplete';
+  itemsGroup: ItemsGroupItem[];
+}
+
+export interface ItemsGroupItem {
+  value: string;
+  label: string;
+}
+
+export type InputSchema<T> =
+  | TextInputSchema<T>
+  | GroupInputSchema<T>
+  | FileInputSchema<T>
+  | SectionSchema<T>
+  | RepeaterInputSchema<T>
 
 
 const FormConstructor = ({fields, title, submitHandler, buttonLabel, fieldsGroupsNumber = 1, fieldsGroups, groupsPosition, isSteped}:FormSchema) => {
 
   const formSchemaObject:any = {}
   const formDefaultValuesObject:any = {}
-  const fieldsByGroup:InputSchema[][] = []
+  const fieldsByGroup:InputSchema<any>[][] = []
 
   if(fieldsGroups) {
-    const noIncludedGroupArr:InputSchema[] = []
+    const noIncludedGroupArr:InputSchema<any>[] = []
     fieldsGroups.forEach((group) => {
-      const includedGroupArr:InputSchema[] = []
+      const includedGroupArr:InputSchema<any>[] = []
 
       fields.forEach(item => {
-        group.includes(item.name) ? includedGroupArr.push(item) : noIncludedGroupArr.push(item)
+        group.includes(item.name as string) ? includedGroupArr.push(item) : noIncludedGroupArr.push(item)
       })
 
       fieldsByGroup.push(includedGroupArr)
@@ -95,9 +104,7 @@ const FormConstructor = ({fields, title, submitHandler, buttonLabel, fieldsGroup
   }
 
   fields.forEach(element => {
-    if(element.parser) {
-      formSchemaObject[element.name] = element.parser
-    }
+    formSchemaObject[element.name] = element.parser ?? z.any()
   });
 
   fields.forEach(element => {
@@ -110,9 +117,28 @@ const FormConstructor = ({fields, title, submitHandler, buttonLabel, fieldsGroup
       defaultValues: formDefaultValuesObject,
     })
   function onSubmit(values: z.infer<typeof formSchema>) {
+    
     submitHandler && submitHandler(values)
   }
-    return <FormConstructorInner isSteped={isSteped} groupsPosition={groupsPosition} title={title} buttonLabel={buttonLabel} form={form} onSubmit={onSubmit} fieldsGroup={fieldsByGroup} />
+    return (
+      <>    <FormConstructorInner isSteped={isSteped} groupsPosition={groupsPosition} title={title} buttonLabel={buttonLabel} form={form} onSubmit={onSubmit} fieldsGroup={fieldsByGroup} />
+      <div onClick={() => {
+
+        const values = form.getValues()
+
+        try {
+          formSchema.parse(values);
+        } catch (err) {
+          if (err instanceof z.ZodError) {
+            err.errors.forEach((issue) => {
+              // console.log(issue); // Vai imprimir a mensagem de erro específica
+              console.log(form.formState.errors.repeater?.root)
+            });
+          }
+        }
+      }}>Testar</div>
+    </>
+  )
 }
 
 

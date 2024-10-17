@@ -99,9 +99,14 @@ function Autocomplete({itemsGroup = [], placeholder, field, form, allowMany, all
                value={item.label}
                key={item.value}
                onSelect={() => {
-                allowMany ? 
-                !field.value.includes(item.value) && form.setValue(field.name, [...form.getValues(field.name), item.value])
-                : form.setValue(field.name, item.value)
+
+                if(allowMany) {
+                  form.setValue(field.name, [...form.getValues(field.name), item.value])
+                } else {
+                  form.setValue(field.name, item.value)
+                  setOpen(false)
+                }
+
                 
                }}
              >

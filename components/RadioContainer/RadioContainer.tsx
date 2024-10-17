@@ -5,13 +5,15 @@ import { RadioGroup, RadioGroupItem } from "../ui/radio-group"
 
 type RadioContainerProps = {
     field:ControllerRenderProps<FieldValues, string>
-    formItem:InputSchema
+    formItem:InputSchema<any>
 }
 
 const RadioContainer = ({formItem, field}:RadioContainerProps) => {
+
+
     return (
       <RadioGroup onValueChange={field.onChange}
-      defaultValue={field.value} className="flex flex-col gap-2 my-2">
+      defaultValue={formItem.defaultValue} className="flex flex-col gap-2 my-2">
       {
         formItem.itemsGroup?.map((item,index) => (
           <div key={index} className="flex gap-2 items-center">

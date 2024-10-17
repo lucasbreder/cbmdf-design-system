@@ -4,10 +4,11 @@ import { Input } from "../ui/input"
 
 type CheckboxContainerProps = {
     field:ControllerRenderProps<FieldValues, string>
-    formItem:InputSchema
+    formItem:InputSchema<any>
 }
 
 const InputContainer = ({formItem, field}:CheckboxContainerProps) => {
+  
     return (
     
     <Input {...field} type={formItem.type} placeholder={formItem.placeholder} onChange={(e) => {

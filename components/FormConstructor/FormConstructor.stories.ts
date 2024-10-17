@@ -24,6 +24,43 @@ export const Default: Story = {
         submitHandler: (data) => {console.log(data)},
         fields: [
             {
+                name: 'repeater',
+                parser: z.any(),
+                placeholder: '',
+                label: 'Repetidor',
+                description: 'Aqui temos um exemplo de repetidor',
+                type: 'repeater',
+                repeaterGroup: [
+                    {
+                        name: 'attribute',
+                        placeholder: 'Opções',
+                        type: 'autocomplete',
+                        additionalFeatures: ["allow-many", "allow-new"],
+                        basis: 'basis-2/3',
+                        itemsGroup: [
+                            {
+                                label: 'Capa',
+                                value: 'capa'
+                            },
+                            {
+                                label: 'EPI',
+                                value: 'epi'
+                            },
+                            {
+                                label: 'Aproximação',
+                                value: 'aproximacao'
+                            }
+                        ],
+                    },
+                    {
+                                name: 'value',
+                                placeholder: 'Valor',
+                                type: 'text',
+                                basis: 'basis-1/3'
+                            },
+                ],
+            },
+            {
                 name: 'text',
                 parser: required
                 .max(50, {
@@ -179,6 +216,7 @@ export const Default: Story = {
             defaultValue: '',
             description: 'Aqui temos um exemplo de autocomplete',
             type: 'autocomplete',
+            additionalFeatures: ['allow-many'],
             basis: 'basis-2/3',
             itemsGroup: [
                 {
@@ -191,7 +229,7 @@ export const Default: Story = {
                 }
             ],
         },
-        {
+         {
             name: 'file',
             parser:  z.instanceof(Object, {
                 message: "Each item must be a valid file",

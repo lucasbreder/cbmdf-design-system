@@ -8,7 +8,7 @@ import Steps from "../Steps/Steps"
 import { UseFormReturn } from "react-hook-form"
 
 type FormSchemaInner = {
-    fieldsGroup: InputSchema[][]
+    fieldsGroup: InputSchema<any>[][]
     form: UseFormReturn,
     onSubmit: any
     title?: string
