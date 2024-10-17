@@ -1,7 +1,7 @@
 "use client"
+
 import { BreadcrumbContainer } from "@/components/BreadcrumbContainer/BreadcrumbContainer";
 import CardContainer from "@/components/CardContainer/CardContainer";
-import Header from "@/components/Header/Header";
 import ImagesGallery from "@/components/ImagesGallery/ImagesGallery";
 import InfoNumber from "@/components/InfoNumber/InfoNumber";
 import LineChartMaterial from "@/components/LineChartMaterial/LineChartMaterial";
@@ -10,6 +10,7 @@ import Tools from "@/components/Tools/Tools";
 import { Badge } from "@/components/ui/badge";
 import { materialCards } from "@/data/fakeData";
 import { useParams } from "next/navigation";
+
 
 export default function CatalogoSingle() {
 
