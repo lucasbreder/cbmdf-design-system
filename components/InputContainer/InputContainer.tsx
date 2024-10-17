@@ -8,6 +8,7 @@ type CheckboxContainerProps = {
 }
 
 const InputContainer = ({formItem, field}:CheckboxContainerProps) => {
+  
     return (
     
     <Input {...field} type={formItem.type} placeholder={formItem.placeholder} onChange={(e) => {

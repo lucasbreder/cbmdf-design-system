@@ -1,13 +1,15 @@
 import { showInput } from "@/helpers/showInput"
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
 import { InputSchema } from "./FormConstructor"
+import { UseFormReturn } from "react-hook-form"
 
 type FormFieldConstructorProps = {
-    form: any
+    form: UseFormReturn
     fieldItem: InputSchema<any>
 }
 
 const FormFieldConstructor = ({form, fieldItem}:FormFieldConstructorProps) => {
+
     return (
         <FormField
         control={form.control}
@@ -20,17 +22,21 @@ const FormFieldConstructor = ({form, fieldItem}:FormFieldConstructorProps) => {
             && fieldItem.type !== "section" && 
             <FormLabel>{fieldItem.label ?? fieldItem.placeholder}</FormLabel>}
             
-            <div className={`flex flex-col ${(fieldItem.type === 'radio' || fieldItem.type === 'checkbox') && 'flex-col-reverse mb-2'}`}>
+            <div className={`flex flex-col ${(fieldItem.type === 'radio' || fieldItem.type === 'checkbox' || fieldItem.type === 'repeater') && 'flex-col-reverse mb-2'}`}>
             <FormControl>
               {
                showInput(form, field, fieldItem)
-              }
+              }  
             </FormControl>
-            <FormDescription className={`${(fieldItem.type === 'radio' || fieldItem.type === 'checkbox') && 'mb-1 -mt-2'}`}>
+            
+            <FormDescription className={`${(fieldItem.type === 'radio' || fieldItem.type === 'checkbox' || fieldItem.type === 'repeater') && 'mb-1 -mt-2'}`}>
             {fieldItem.description}
             </FormDescription>
             </div>
-            <FormMessage />
+            {
+              fieldItem.type !== 'repeater' ? <FormMessage/> :
+              <div className="text-sm font-medium text-destructive">{form.formState.errors[fieldItem.name as string]?.root?.message?.toString()}</div>
+            }
           </FormItem>
           ) 
         }
