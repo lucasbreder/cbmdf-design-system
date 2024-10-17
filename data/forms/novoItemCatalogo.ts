@@ -2,7 +2,7 @@ import { InputSchema } from "@/components/FormConstructor/FormConstructor"
 import { required } from "@/helpers/parsers/parsers"
 import { z } from "zod"
 
-export const novoItemCatalogoForm:InputSchema[] = [
+export const novoItemCatalogoForm:InputSchema<any>[] = [
     {
         name: 'nome',
         parser: required

@@ -30,6 +30,7 @@ interface BaseInputSchema<T> {
   basis?: string;
   additionalFeatures?: AdditionalFeatures[];
   itemsGroup?: ItemsGroupItem[];
+  repeaterGroup?: InputSchema<any>[];
 }
 
 interface SectionSchema<T> extends BaseInputSchema<T> {
@@ -43,6 +44,11 @@ interface TextInputSchema<T> extends BaseInputSchema<T> {
 interface FileInputSchema<T> extends BaseInputSchema<T> {
   type: 'file';
   fileTypes: FileTypes;
+}
+
+interface RepeaterInputSchema<T> extends BaseInputSchema<T> {
+  type: 'repeater';
+  repeaterGroup: InputSchema<any>[];
 }
 
 interface GroupInputSchema<T> extends BaseInputSchema<T> {
@@ -59,7 +65,8 @@ export type InputSchema<T> =
   | TextInputSchema<T>
   | GroupInputSchema<T>
   | FileInputSchema<T>
-  | SectionSchema<T>;
+  | SectionSchema<T>
+  | RepeaterInputSchema<T>
 
 
 const FormConstructor = ({fields, title, submitHandler, buttonLabel, fieldsGroupsNumber = 1, fieldsGroups, groupsPosition, isSteped}:FormSchema) => {
@@ -97,9 +104,7 @@ const FormConstructor = ({fields, title, submitHandler, buttonLabel, fieldsGroup
   }
 
   fields.forEach(element => {
-    if(element.parser) {
-      formSchemaObject[element.name] = element.parser
-    }
+    formSchemaObject[element.name] = element.parser ?? z.any()
   });
 
   fields.forEach(element => {
@@ -112,9 +117,28 @@ const FormConstructor = ({fields, title, submitHandler, buttonLabel, fieldsGroup
       defaultValues: formDefaultValuesObject,
     })
   function onSubmit(values: z.infer<typeof formSchema>) {
+    
     submitHandler && submitHandler(values)
   }
-    return <FormConstructorInner isSteped={isSteped} groupsPosition={groupsPosition} title={title} buttonLabel={buttonLabel} form={form} onSubmit={onSubmit} fieldsGroup={fieldsByGroup} />
+    return (
+      <>    <FormConstructorInner isSteped={isSteped} groupsPosition={groupsPosition} title={title} buttonLabel={buttonLabel} form={form} onSubmit={onSubmit} fieldsGroup={fieldsByGroup} />
+      <div onClick={() => {
+
+        const values = form.getValues()
+
+        try {
+          formSchema.parse(values);
+        } catch (err) {
+          if (err instanceof z.ZodError) {
+            err.errors.forEach((issue) => {
+              // console.log(issue); // Vai imprimir a mensagem de erro específica
+              console.log(form.formState.errors.repeater?.root)
+            });
+          }
+        }
+      }}>Testar</div>
+    </>
+  )
 }
 
 
