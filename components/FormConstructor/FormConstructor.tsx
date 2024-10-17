@@ -122,21 +122,6 @@ const FormConstructor = ({fields, title, submitHandler, buttonLabel, fieldsGroup
   }
     return (
       <>    <FormConstructorInner isSteped={isSteped} groupsPosition={groupsPosition} title={title} buttonLabel={buttonLabel} form={form} onSubmit={onSubmit} fieldsGroup={fieldsByGroup} />
-      <div onClick={() => {
-
-        const values = form.getValues()
-
-        try {
-          formSchema.parse(values);
-        } catch (err) {
-          if (err instanceof z.ZodError) {
-            err.errors.forEach((issue) => {
-              // console.log(issue); // Vai imprimir a mensagem de erro específica
-              console.log(form.formState.errors.repeater?.root)
-            });
-          }
-        }
-      }}>Testar</div>
     </>
   )
 }
