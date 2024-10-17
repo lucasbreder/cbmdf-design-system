@@ -1,7 +1,7 @@
 "use client"
+
 import { BreadcrumbContainer } from "@/components/BreadcrumbContainer/BreadcrumbContainer";
 import CardContainer from "@/components/CardContainer/CardContainer";
-import Header from "@/components/Header/Header";
 import ImagesGallery from "@/components/ImagesGallery/ImagesGallery";
 import InfoNumber from "@/components/InfoNumber/InfoNumber";
 import LineChartMaterial from "@/components/LineChartMaterial/LineChartMaterial";
