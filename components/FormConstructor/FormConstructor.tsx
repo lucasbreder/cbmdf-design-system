@@ -121,8 +121,7 @@ const FormConstructor = ({fields, title, submitHandler, buttonLabel, fieldsGroup
     submitHandler && submitHandler(values)
   }
     return (
-      <>    <FormConstructorInner isSteped={isSteped} groupsPosition={groupsPosition} title={title} buttonLabel={buttonLabel} form={form} onSubmit={onSubmit} fieldsGroup={fieldsByGroup} />
-    </>
+     <FormConstructorInner isSteped={isSteped} groupsPosition={groupsPosition} title={title} buttonLabel={buttonLabel} form={form} onSubmit={onSubmit} fieldsGroup={fieldsByGroup} />
   )
 }
 
