@@ -1,13 +1,6 @@
 "use client"
-<<<<<<< HEAD
 import { BreadcrumbContainer } from "@/components/BreadcrumbContainer/BreadcrumbContainer";
 import CardContainer from "@/components/CardContainer/CardContainer";
-import Header from "@/components/Header/Header";
-=======
-
-import { BreadcrumbContainer } from "@/components/BreadcrumbContainer/BreadcrumbContainer";
-import CardContainer from "@/components/CardContainer/CardContainer";
->>>>>>> db71d2ffe5dbb55df97897a4cdd93d8f6a0570a9
 import ImagesGallery from "@/components/ImagesGallery/ImagesGallery";
 import InfoNumber from "@/components/InfoNumber/InfoNumber";
 import LineChartMaterial from "@/components/LineChartMaterial/LineChartMaterial";
@@ -64,27 +57,15 @@ export default function CatalogoSingle() {
             <div className="flex flex-col basis-3/6 gap-5 ">
             {data.categories && <div className="flex gap-2 text-white">
               {data.categories.map((category) => {
-<<<<<<< HEAD
               return <Badge>{category.title}</Badge>
-            })}
-            </div>}
-            
-              <Title title={data.title} />
-              <p className="font-light">{data.description}</p>
-             { data.variations && <div className="grid grid-cols-2 gap-6 my-6">
-              {
-                data.variations && data.variations.map((variation, index) => {
-=======
-              return <Badge>{category}</Badge>
             })}
             </div>}
             
               <Title title={data.name} />
               <p className="font-light">{data.description}</p>
-             { data.variants && <div className="grid grid-cols-2 gap-6 my-6">
+             { data.variations && <div className="grid grid-cols-2 gap-6 my-6">
               {
-                data.variants && data.variants.map((variation, index) => {
->>>>>>> db71d2ffe5dbb55df97897a4cdd93d8f6a0570a9
+                data.variations && data.variations.map((variation, index) => {
                   return <CardContainer key={index} title={variation.title} description={variation.value} />
                 })
               }
