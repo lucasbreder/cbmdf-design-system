@@ -4,7 +4,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 
 library.add(fas);
 
-import "../app/globals.css"
+import "../styles/globals.css"
 
 const preview: Preview = {
   parameters: {

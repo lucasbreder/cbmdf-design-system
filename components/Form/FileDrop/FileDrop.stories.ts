@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
-
 import FileDrop from "./FileDrop";
+
 
 const meta = {
     title: 'File Drop',
@@ -27,7 +27,7 @@ export const Default: Story = {
                 ".pdf", ".jpg", ".jpeg", ".png", ".txt"
             ]
         },
-        maxFileSize: 1024 ** 2.8,
+        maxFileSize: 1024 * 2.8,
         progressUpload: [
             {
                 name: 'img20240722_15052253.png',

@@ -1,5 +1,5 @@
-import useTransferContext from "@/hook/useTransferContext"
-import useTransferData from "@/hook/useTransferData"
+import useTransferContext from "@/hooks/useTransferContext"
+import useTransferData from "@/hooks/useTransferData"
 import Image from "next/image"
 
 type ItemCardProps = {

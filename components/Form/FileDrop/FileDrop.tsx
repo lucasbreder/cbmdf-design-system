@@ -1,18 +1,18 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { DragEvent, useRef, useState } from "react";
-import { Progress } from "../ui/progress";
 import { Button } from "@/components/ui/button"
 import { formatBytes } from "@/helpers/formatBytes";
 import { useToast } from "@/hooks/use-toast";
-import { Toaster } from "../ui/toaster";
 import getIconNameByType from "@/helpers/getIconNameByType";
 import { ControllerRenderProps, FieldValues, UseFormReturn } from "react-hook-form";
+import { Toaster } from "@/components/ui/toaster";
+import { Progress } from "@/components/ui/progress";
 
 
 type FileDropProps = {
     fileTypes: FileTypes
-    form:UseFormReturn
-    field: ControllerRenderProps<FieldValues, string>
+    form?:UseFormReturn
+    field?: ControllerRenderProps<FieldValues, string>
     maxFileSize?: number, // @valores em bytes
     progressUpload?: Array<{
         name: string,
@@ -100,7 +100,7 @@ const FileDrop = ({ fileTypes, maxFileSize, progressUpload = [], field, form }: 
             setFiles(prev => {
                 const existingFiles = prev?.map(file => file.name);
                 const newFiles = items.filter(item => !existingFiles?.includes(item.name));
-                form.setValue(field.name, [...(prev || []), ...newFiles])
+                form && field && form.setValue(field.name, [...(prev || []), ...newFiles])
                 return [...(prev || []), ...newFiles];
             });
             
@@ -117,7 +117,7 @@ const FileDrop = ({ fileTypes, maxFileSize, progressUpload = [], field, form }: 
     const removeFile = (key: Number) => {
         const newFiles = files?.filter((file, index) => index !== key);
         setFiles(newFiles)
-        form.setValue(field.name, newFiles)
+        form && field && form.setValue(field.name, newFiles)
     }
 
 

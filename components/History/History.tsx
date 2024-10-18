@@ -1,4 +1,3 @@
-import Image from "next/image"
 import Moment from "react-moment"
 
 type History = {

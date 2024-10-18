@@ -1,5 +1,5 @@
 import { showInput } from "@/helpers/showInput"
-import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
+import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { InputSchema } from "./FormConstructor"
 import { UseFormReturn } from "react-hook-form"
 

@@ -1,6 +1,5 @@
 import Moment from "react-moment"
 import MaterialCheck, { MaterialCheckProps } from "../MaterialCheck/MaterialCheck"
-import { useEffect, useState } from "react"
 import { isDatesEqual } from "@/helpers/isDatesEqual"
 
 type CalendarMaterialCheckProps = {

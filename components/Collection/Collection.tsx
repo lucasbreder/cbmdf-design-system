@@ -1,6 +1,6 @@
 import ItemsTransferProvider from "@/context/ItemsTransferProvider"
 import Place, { PlaceProps } from "../Place/Place"
-import useTransferContext from "@/hook/useTransferContext"
+import useTransferContext from "@/hooks/useTransferContext"
 import { useEffect } from "react"
 
 export type CollectionProps = {

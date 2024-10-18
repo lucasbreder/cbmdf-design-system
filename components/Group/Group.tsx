@@ -1,9 +1,9 @@
-import useTransferContext from "@/hook/useTransferContext"
+import useTransferContext from "@/hooks/useTransferContext"
 import { useState } from "react"
 import Place, { PlaceProps } from "../Place/Place"
 import { deepCounter } from "@/helpers/deepCounter"
 import ItemCard from "../ItemCard/ItemCard"
-import useTransferData from "@/hook/useTransferData"
+import useTransferData from "@/hooks/useTransferData"
 
 
 

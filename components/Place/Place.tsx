@@ -1,8 +1,5 @@
-import { useCallback, useEffect, useMemo, useState } from "react"
 import { deepCounter } from "@/helpers/deepCounter"
 import Group, { GroupProps, ItemProps } from "../Group/Group"
-import useTransferContext from "@/hook/useTransferContext"
-
 
 export type PlaceProps = {
     id: number

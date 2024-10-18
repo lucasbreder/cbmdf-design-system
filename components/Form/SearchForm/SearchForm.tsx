@@ -1,5 +1,6 @@
+import { Input } from "@/components/ui/input"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { Input } from "../ui/input"
+
 
 type SearchFormProps = {
     placeholder?: string

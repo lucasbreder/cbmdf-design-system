@@ -11,8 +11,8 @@ import {
 } from "@/components/ui/popover"
 import { ControllerRenderProps, FieldValues, UseFormReturn } from "react-hook-form"
 import { ptBR } from "date-fns/locale"
-import { Input } from "../ui/input"
-import { Button } from "../ui/button"
+import { Input } from "../../ui/input"
+import { Button } from "../../ui/button"
 import { cn } from "@/lib/utils"
 import { isValidDate } from "@/helpers/isValidDate"
 import { InputSchema } from "../FormConstructor/FormConstructor"
@@ -21,7 +21,7 @@ type DatePickerProps = {
   field: ControllerRenderProps<FieldValues, string>
   form: UseFormReturn
   isWritable?: boolean
-  formItem:InputSchema
+  formItem:InputSchema<any>
 }
 
 function DatePicker({field, form, isWritable = true, formItem}:DatePickerProps) {
