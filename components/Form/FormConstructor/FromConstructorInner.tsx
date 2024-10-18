@@ -1,11 +1,10 @@
 
 import { InputSchema } from "./FormConstructor"
-import Button from "../Button/Button"
 import FormFieldConstructor from "./FormFieldConstructor"
-import Step from "../Steps/Steps"
-import { Form } from "../ui/form"
 import Steps from "../Steps/Steps"
 import { UseFormReturn } from "react-hook-form"
+import Button from "@/components/Button/Button"
+import { Form } from "@/components/ui/form"
 
 type FormSchemaInner = {
     fieldsGroup: InputSchema<any>[][]

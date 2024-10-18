@@ -1,7 +1,7 @@
 import { ControllerRenderProps, FieldValues } from "react-hook-form"
 import { InputSchema } from "../FormConstructor/FormConstructor"
-import { Label } from "../ui/label"
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group"
+import { Label } from "../../ui/label"
+import { RadioGroup, RadioGroupItem } from "../../ui/radio-group"
 
 type RadioContainerProps = {
     field:ControllerRenderProps<FieldValues, string>

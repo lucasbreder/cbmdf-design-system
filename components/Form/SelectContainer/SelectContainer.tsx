@@ -1,11 +1,11 @@
 import { ControllerRenderProps, FieldValues } from "react-hook-form"
 import { InputSchema } from "../FormConstructor/FormConstructor"
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select"
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../../ui/select"
 
 
 type SelectContainerProps = {
     field:ControllerRenderProps<FieldValues, string>
-    formItem:InputSchema
+    formItem:InputSchema<any>
 }
 
 const SelectContainer = ({formItem, field}:SelectContainerProps) => {

@@ -2,12 +2,12 @@ import { ReactNode, useState } from "react"
 import { InputSchema } from "../FormConstructor/FormConstructor"
 import FormFieldConstructor from "../FormConstructor/FormFieldConstructor"
 import { UseFormReturn } from "react-hook-form"
-import LinkItem from "../Link/LinkItem"
-import Button from "../Button/Button"
-import Title from "../Title/Title"
+import LinkItem from "../../Link/LinkItem"
+import Button from "../../Button/Button"
+import Title from "../../Title/Title"
 
 type StepsProps = {
-    fieldsGroup: InputSchema[][]
+    fieldsGroup: InputSchema<any>[][]
     form: UseFormReturn
     buttonLabel?: string
 
@@ -18,7 +18,7 @@ type StepProps = {
     activatedSteps: number[]
     setActivatedSteps: any
     index: number
-    fields: InputSchema[]
+    fields: InputSchema<any>[]
     form: UseFormReturn
     length: number
     buttonLabel?: string
@@ -62,7 +62,7 @@ const Step = ({children, activatedSteps, index, setActivatedSteps, fields, form,
                 const validationStepControllet:boolean[] = []
                 fields.forEach((field) => {
                     if (field.type !== 'section') {
-                    form.trigger(field.name).then((e) => {
+                    form.trigger(field.name as string).then((e) => {
                         validationStepControllet.push(e)
                     }).finally(() => {
                         !validationStepControllet.includes(false) && setActivatedSteps((prev:number[]) => [...prev, index +1])

@@ -2,10 +2,10 @@ import { Meta, StoryObj } from "@storybook/react";
 import PageContainer from "./PageContainer";
 import Header from "../Header/Header";
 import Title from "../Title/Title";
-import SearchForm from "../SearchForm/SearchForm";
 import Selector from "../Selector/Selector";
 import Button from "../Button/Button";
 import TableGrid from "../TableGrid/Table";
+import SearchForm from "../Form/SearchForm/SearchForm";
 
 const meta = {
     title: 'Page Container',

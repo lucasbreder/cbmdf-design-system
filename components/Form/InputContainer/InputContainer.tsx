@@ -1,6 +1,6 @@
 import { ControllerRenderProps, FieldValues } from "react-hook-form"
 import { InputSchema } from "../FormConstructor/FormConstructor"
-import { Input } from "../ui/input"
+import { Input } from "../../ui/input"
 
 type CheckboxContainerProps = {
     field:ControllerRenderProps<FieldValues, string>

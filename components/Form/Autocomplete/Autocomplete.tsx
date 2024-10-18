@@ -7,11 +7,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { useState } from "react"
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "../ui/command"
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "../../ui/command"
 import { ItemsGroupItem } from "../FormConstructor/FormConstructor"
 import { ControllerRenderProps, FieldValues, UseFormReturn } from "react-hook-form"
-import { Badge } from "../ui/badge"
-import { Input } from "../ui/input"
+import { Badge } from "../../ui/badge"
+import { Input } from "../../ui/input"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { toSlug } from "@/helpers/toSlug"
 

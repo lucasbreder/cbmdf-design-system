@@ -1,13 +1,12 @@
-import { useFieldArray, UseFormReturn } from "react-hook-form";
+import { ControllerRenderProps, FieldValues, useFieldArray, UseFormReturn } from "react-hook-form";
 import { InputSchema } from "../FormConstructor/FormConstructor";
 import FormFieldConstructor from "../FormConstructor/FormFieldConstructor";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
-import { Button } from "../ui/button";
 
 type InputRepeaterProps = {
     form:UseFormReturn
-    field: any
+    field: ControllerRenderProps<FieldValues, string>
     formItem: InputSchema<any>
 }
 
