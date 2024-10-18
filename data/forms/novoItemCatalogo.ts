@@ -1,9 +1,10 @@
-import { InputSchema } from "@/components/FormConstructor/FormConstructor"
+
+import { InputSchema } from "@/components/Form/FormConstructor/FormConstructor"
 import { required } from "@/helpers/parsers/parsers"
 import { CatalogItem } from "@/models/catalogItem"
 import { z } from "zod"
 
-export const novoItemCatalogoForm:InputSchema<any>[] = [
+export const novoItemCatalogoForm:InputSchema<CatalogItem>[] = [
     {
         name: 'name',
         parser: required
@@ -153,6 +154,50 @@ export const novoItemCatalogoForm:InputSchema<any>[] = [
                 label: 'Material de Consumo',
                 value: 'material-consumo'
             }
+        ]
+    },
+    {
+        name: "",
+        label: "Variações",
+        type: "section"
+    },
+    {
+        name: 'variants',
+        parser: z.enum(["material-permanente", "material-consumo"], {
+            required_error: "You need to select a notification type.",
+          }),
+
+        type: 'repeater',
+        repeaterGroup: [
+            {
+                name: 'variant',
+                parser: z.array(z.string()).refine((value) => value.some((item) => item), {
+                    message: "Selecione pelo menos um item",
+                  }),
+                placeholder: 'Variações',
+                type: 'autocomplete',
+                basis: 'basis-1/2',
+                itemsGroup: [
+                    {
+                        label: 'Cor',
+                        value: 'cor'
+                    },
+                    {
+                        label: 'Tamanho',
+                        value: 'tamanho'
+                    }
+                ]
+            },
+            {
+                name: 'value',
+                parser: required
+                .max(50, {
+                    message: 'Deve ter até 50 caracteres'
+                }),
+                placeholder: 'Nome',
+                type: 'text',
+                basis: 'basis-1/2',
+            },
         ]
     },
     {

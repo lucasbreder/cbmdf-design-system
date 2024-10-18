@@ -1,9 +1,10 @@
 "use client"
 
-import FormConstructor from "@/components/FormConstructor/FormConstructor";
+import FormConstructor, { InputSchema } from "@/components/Form/FormConstructor/FormConstructor";
 import { materialCards } from "@/data/fakeData";
 import { novoItemCatalogoForm } from "@/data/forms/novoItemCatalogo";
 import { catalogItemFactory } from "@/factories/catalogItemFactory";
+import { CatalogItem } from "@/models/catalogItem";
 import { useParams } from "next/navigation";
 
 
@@ -20,7 +21,7 @@ export default function Home() {
   console.log(data)
 
 
-  novoItemCatalogoForm.forEach((item) => {
+  novoItemCatalogoForm.forEach((item:InputSchema<CatalogItem>) => {
     item.defaultValue = (data && item.name !== '') ? data[item.name] : ''
   })
 

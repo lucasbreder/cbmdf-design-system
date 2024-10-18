@@ -1,6 +1,7 @@
 "use client"
 
-import FormConstructor from "@/components/FormConstructor/FormConstructor";
+
+import FormConstructor from "@/components/Form/FormConstructor/FormConstructor";
 import { novoItemCatalogoForm } from "@/data/forms/novoItemCatalogo";
 
 
@@ -16,7 +17,6 @@ export default function Home() {
         fieldsGroups={[['gallery', 'documents']]}
         buttonLabel="Enviar" 
         submitHandler={(e) => console.log(e)}/>
-
     </div>
 
   );

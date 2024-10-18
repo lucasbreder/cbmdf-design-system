@@ -31,7 +31,7 @@ const InputRepeater = ({form, field, formItem}:InputRepeaterProps) => {
     return (
         <div className="flex flex-col gap-3">
         {formItem.repeaterGroup && fields.map((fieldItemMap, index) => (
-            <div className="flex w-full bg-slate-200 p-2 pt-5 rounded-md">
+            <div className="flex w-full bg-slate-200 p-2 pt-5 rounded-md w-full">
               <div key={fieldItemMap.id} className="flex flex-wrap items-center w-full">
               {
                   formItem.repeaterGroup?.map((groupItem, groupIndex) => {

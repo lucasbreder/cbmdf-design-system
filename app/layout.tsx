@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "../styles/globals.css";
 import Aside from "@/components/Aside/Aside";
 import Nav from "@/components/Nav/Nav";
 import { localsNav, nav } from "@/data/fakeData";
